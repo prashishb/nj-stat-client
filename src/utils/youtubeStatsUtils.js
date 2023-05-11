@@ -11,8 +11,8 @@ export const formatCount = (count) => {
 };
 
 export const checkMilestone = (count) => {
-  if (count >= 100000000) return Math.floor(count / 100000000) * 100 + 'M';
-  if (count >= 1000000000) return Math.floor(count / 1000000000) * 100 + 'B';
+  if (count >= 100000000) return Math.floor(count / 100000000) * 100 + 'M+';
+  if (count >= 1000000000) return Math.floor(count / 1000000000) * 100 + 'B+';
   return null;
 };
 

@@ -9,6 +9,7 @@ import SongAlbumCard from './SongAlbumCard';
 
 import { createFileName } from 'use-react-screenshot';
 import html2canvas from 'html2canvas';
+import { isMobile } from 'react-device-detect';
 
 const ContentContainer = ({
   displayMode,
@@ -61,11 +62,11 @@ const ContentContainer = ({
       ignoreElements: (element) => element.id === 'screenshot-icon',
     }).then((canvas) => {
       canvas.toBlob((blob) => {
-        if (navigator.share) {
-          // Web Share API is supported
+        if (isMobile && navigator.share) {
+          // Web Share API is supported and device is mobile
           const file = new File(
             [blob],
-            createFileName(`spotify_${ref.id}_${formatDateNew(updatedAt)}`),
+            createFileName(`spotify_${ref.id}_${formatDateNew(updatedAt)}.png`),
             { type: 'image/png' }
           );
           navigator
@@ -75,7 +76,7 @@ const ContentContainer = ({
             })
             .catch((error) => console.log('Sharing failed', error));
         } else {
-          // Fallback for browsers that don't support the Web Share API
+          // Fallback for desktop or browsers that don't support the Web Share API
           const link = document.createElement('a');
           link.href = URL.createObjectURL(blob);
           link.download = createFileName(

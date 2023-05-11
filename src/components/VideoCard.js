@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
-import { RiScreenshot2Fill } from 'react-icons/ri';
+// import { RiScreenshot2Fill } from 'react-icons/ri';
 import { FiThumbsUp, FiEye } from 'react-icons/fi';
-import html2canvas from 'html2canvas';
-import { createFileName } from 'use-react-screenshot';
+// import html2canvas from 'html2canvas';
+// import { createFileName } from 'use-react-screenshot';
 
 const VideoCard = ({ video }) => {
   const { image, title, viewCount, hourlyViewCount, dayViewCount, likeCount } =
@@ -24,25 +24,25 @@ const VideoCard = ({ video }) => {
 
   const milestone = checkMilestone(viewCount);
 
-  const handleScreenshot = () => {
-    // use proxy to bypass CORS using html2canvas
-    const proxy = 'https://cors-anywhere.herokuapp.com/';
-    const ref = cardRef.current;
-    if (!ref) return;
-    html2canvas(ref, {
-      allowTaint: false,
-      useCORS: true,
-      height: ref.offsetHeight - 7,
-      padding: 2,
-      proxy: proxy,
-      ignoreElements: (element) => element.id === 'screenshot-icon',
-    }).then((canvas) => {
-      const link = document.createElement('a');
-      link.href = canvas.toDataURL();
-      link.download = createFileName(`youtube_${ref.id}`);
-      link.click();
-    });
-  };
+  // TODO: Fix CORS issue (maybe implement it in the backend)
+  // const handleScreenshot = () => {
+  //   const proxy = 'https://cors-anywhere.herokuapp.com/';
+  //   const ref = cardRef.current;
+  //   if (!ref) return;
+  //   html2canvas(ref, {
+  //     allowTaint: false,
+  //     useCORS: true,
+  //     height: ref.offsetHeight - 7,
+  //     padding: 2,
+  //     proxy: proxy,
+  //     ignoreElements: (element) => element.id === 'screenshot-icon',
+  //   }).then((canvas) => {
+  //     const link = document.createElement('a');
+  //     link.href = canvas.toDataURL();
+  //     link.download = createFileName(`youtube_${ref.id}`);
+  //     link.click();
+  //   });
+  // };
 
   return (
     <div
@@ -50,10 +50,9 @@ const VideoCard = ({ video }) => {
       ref={cardRef}
       style={{ backgroundImage: `url(${image})` }}
     >
-      <RiScreenshot2Fill
+      {/* <RiScreenshot2Fill
         className='video-card-icon screenshot-icon'
-        onClick={handleScreenshot}
-      />
+      /> */}
       <div className='backdrop-filter-overlay'></div>
       <div className='card-body video-card-body p-2'>
         <div className='d-flex align-items-start mb-3'>

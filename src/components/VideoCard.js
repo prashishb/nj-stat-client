@@ -1,8 +1,11 @@
 import React, { useRef } from 'react';
-// import { RiScreenshot2Fill } from 'react-icons/ri';
-import { FiThumbsUp, FiEye } from 'react-icons/fi';
-// import html2canvas from 'html2canvas';
-// import { createFileName } from 'use-react-screenshot';
+import { FiThumbsUp } from 'react-icons/fi';
+import { BsEyeFill } from 'react-icons/bs';
+import {
+  formatCount,
+  checkMilestone,
+  getBadgeClass,
+} from '../utils/youtubeStatsUtils';
 
 const VideoCard = ({ video }) => {
   const { image, title, viewCount, hourlyViewCount, dayViewCount, likeCount } =
@@ -10,39 +13,8 @@ const VideoCard = ({ video }) => {
 
   const cardRef = useRef(null);
 
-  const formatCount = (count) => {
-    if (count >= 1000000) return (count / 1000000).toFixed(1) + 'M';
-    if (count >= 1000) return (count / 1000).toFixed(1) + 'K';
-    return count;
-  };
-
-  const checkMilestone = (count) => {
-    if (count >= 100000000) return Math.floor(count / 100000000) * 100 + 'M';
-    if (count >= 1000000000) return Math.floor(count / 1000000000) * 100 + 'B';
-    return null;
-  };
-
   const milestone = checkMilestone(viewCount);
-
-  // TODO: Fix CORS issue (maybe implement it in the backend)
-  // const handleScreenshot = () => {
-  //   const proxy = 'https://cors-anywhere.herokuapp.com/';
-  //   const ref = cardRef.current;
-  //   if (!ref) return;
-  //   html2canvas(ref, {
-  //     allowTaint: false,
-  //     useCORS: true,
-  //     height: ref.offsetHeight - 7,
-  //     padding: 2,
-  //     proxy: proxy,
-  //     ignoreElements: (element) => element.id === 'screenshot-icon',
-  //   }).then((canvas) => {
-  //     const link = document.createElement('a');
-  //     link.href = canvas.toDataURL();
-  //     link.download = createFileName(`youtube_${ref.id}`);
-  //     link.click();
-  //   });
-  // };
+  const badgeClass = getBadgeClass(viewCount);
 
   return (
     <div
@@ -50,9 +22,6 @@ const VideoCard = ({ video }) => {
       ref={cardRef}
       style={{ backgroundImage: `url(${image})` }}
     >
-      {/* <RiScreenshot2Fill
-        className='video-card-icon screenshot-icon'
-      /> */}
       <div className='backdrop-filter-overlay'></div>
       <div className='card-body video-card-body p-2'>
         <div className='d-flex align-items-start mb-3'>
@@ -69,8 +38,8 @@ const VideoCard = ({ video }) => {
                 <span>{formatCount(likeCount)}</span>
               </p>
               {milestone && (
-                <p className='ms-2 video-card-milestone-badge'>
-                  <FiEye className='me-1' /> {milestone}
+                <p className={`ms-2 video-badge ${badgeClass}`}>
+                  <BsEyeFill className='me-1' /> {milestone}
                 </p>
               )}
             </div>

@@ -667,19 +667,6 @@ body.dark {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.video-card-milestone-badge {
-  color: #fff !important;
-  font-size: 0.8rem !important;
-  margin-top: 0.25rem;
-  display: flex;
-  align-items: center;
-  background-color: rgba(252, 5, 5, 0.4);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.5rem;
-  width: fit-content;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-}
-
 .col-title {
   display: flex;
   align-items: center;
@@ -705,9 +692,55 @@ body.dark {
   text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.badge {
-  background-color: rgba(255, 0, 0, 0.6);
-  color: #fff;
-  border-radius: 1rem;
-  font-size: 0.75rem;
+.video-badge {
+  color: #fff !important;
+  font-size: 0.8rem !important;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  background-color: rgba(252, 5, 5, 0.4);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  width: fit-content;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.badge-100M {
+  background-color: rgba(244, 67, 54, 0.8);
+}
+
+.badge-200M {
+  background-color: rgba(255, 152, 0, 0.8);
+}
+
+.badge-300M {
+  background-color: rgba(255, 235, 59, 0.8);
+}
+
+.badge-400M {
+  background-color: rgba(76, 175, 80, 0.8);
+}
+
+.badge-500M {
+  background-color: rgba(33, 150, 243, 0.8);
+}
+
+.badge-600M {
+  background-color: rgba(63, 81, 181, 0.8);
+}
+
+.badge-700M {
+  background-color: rgba(156, 39, 176, 0.8);
+}
+
+.badge-800M {
+  background-color: rgba(96, 125, 139, 0.8);
+}
+
+.badge-900M {
+  background-color: rgba(121, 85, 72, 0.8);
+}
+
+.badge-1B {
+  background-color: rgba(255, 193, 7, 0.8);
 }

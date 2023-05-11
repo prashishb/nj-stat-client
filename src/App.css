@@ -754,9 +754,9 @@ body.dark {
 }
 
 .badge-hourly-gainer {
-  background-color: rgba(255, 126, 0, 0.8);
+  background-color: rgba(0, 230, 64, 0.8);
 }
 
 .badge-daily-gainer {
-  background-color: rgba(0, 230, 64, 0.8);
+  background-color: rgba(0, 188, 212, 0.8);
 }

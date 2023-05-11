@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import { fetchVideoStats } from '../services/youtubeStatsService';
-import { getUpdatedAt, processVideos } from '../utils/youtubeStatsUtils';
+import {
+  getHourlyTrendingVideo,
+  getDailyTrendingVideo,
+  getUpdatedAt,
+  processVideos,
+} from '../utils/youtubeStatsUtils';
 
 export const useYouTubeStats = () => {
   const [videoData, setVideoData] = useState([]);
@@ -27,6 +32,8 @@ export const useYouTubeStats = () => {
 
   const updatedAt = getUpdatedAt(videoData);
   const videos = processVideos(videoData);
+  const hourlyTrendingVideoId = getHourlyTrendingVideo(videoData);
+  const dailyTrendingVideoId = getDailyTrendingVideo(videoData);
 
   return {
     isLoading,
@@ -34,5 +41,7 @@ export const useYouTubeStats = () => {
     updatedAt,
     displayMode,
     setDisplayMode,
+    hourlyTrendingVideoId,
+    dailyTrendingVideoId,
   };
 };

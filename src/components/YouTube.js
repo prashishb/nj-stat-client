@@ -7,8 +7,15 @@ import { faFilter, faSort } from '@fortawesome/free-solid-svg-icons';
 import Spinner from './Spinner';
 
 const YouTube = () => {
-  const { isLoading, videos, updatedAt, displayMode, setDisplayMode } =
-    useYouTubeStats();
+  const {
+    isLoading,
+    videos,
+    updatedAt,
+    displayMode,
+    setDisplayMode,
+    hourlyTrendingVideoId,
+    dailyTrendingVideoId,
+  } = useYouTubeStats();
 
   const [filterOption, setFilterOption] = useState('Hourly');
 
@@ -170,7 +177,11 @@ const YouTube = () => {
         {getVideosByDisplayMode().map((video, index) => {
           return (
             <div className='col' key={index}>
-              <VideoCard video={video} />
+              <VideoCard
+                video={video}
+                hourlyTrending={video.id === hourlyTrendingVideoId}
+                dailyTrending={video.id === dailyTrendingVideoId}
+              />
             </div>
           );
         })}

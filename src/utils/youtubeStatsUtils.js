@@ -4,6 +4,30 @@ export const getUpdatedAt = (videoData) => {
   return updatedAt;
 };
 
+export const processVideos = (videoData) => {
+  const sortedVideoData = videoData.sort((a, b) => {
+    return b.hourlyViewCount - a.hourlyViewCount;
+  });
+
+  return sortedVideoData;
+};
+
+export const getHourlyTrendingVideo = (videoData) => {
+  if (!videoData || videoData.length === 0) return null;
+  const hourlyTrendingVideo = videoData.reduce((prev, current) => {
+    return prev.hourlyViewCount > current.hourlyViewCount ? prev : current;
+  });
+  return hourlyTrendingVideo.id;
+};
+
+export const getDailyTrendingVideo = (videoData) => {
+  if (!videoData || videoData.length === 0) return null;
+  const dailyTrendingVideo = videoData.reduce((prev, current) => {
+    return prev.dayViewCount > current.dayViewCount ? prev : current;
+  });
+  return dailyTrendingVideo.id;
+};
+
 export const formatCount = (count) => {
   if (count >= 1000000) return (count / 1000000).toFixed(1) + 'M';
   if (count >= 1000) return (count / 1000).toFixed(1) + 'K';
@@ -14,14 +38,6 @@ export const checkMilestone = (count) => {
   if (count >= 100000000) return Math.floor(count / 100000000) * 100 + 'M+';
   if (count >= 1000000000) return Math.floor(count / 1000000000) * 100 + 'B+';
   return null;
-};
-
-export const processVideos = (videoData) => {
-  const sortedVideoData = videoData.sort((a, b) => {
-    return b.hourlyViewCount - a.hourlyViewCount;
-  });
-
-  return sortedVideoData;
 };
 
 export const getBadgeClass = (count) => {

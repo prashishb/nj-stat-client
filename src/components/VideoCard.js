@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
-import { FiThumbsUp } from 'react-icons/fi';
+import { FiThumbsUp, FiArrowUp } from 'react-icons/fi';
+import { GiSandsOfTime } from 'react-icons/gi';
 import { BsEyeFill } from 'react-icons/bs';
 import {
   formatCount,
@@ -7,7 +8,7 @@ import {
   getBadgeClass,
 } from '../utils/youtubeStatsUtils';
 
-const VideoCard = ({ video }) => {
+const VideoCard = ({ video, hourlyTrending, dailyTrending }) => {
   const { image, title, viewCount, hourlyViewCount, dayViewCount, likeCount } =
     video;
 
@@ -37,6 +38,16 @@ const VideoCard = ({ video }) => {
                 <FiThumbsUp className='me-1' />{' '}
                 <span>{formatCount(likeCount)}</span>
               </p>
+              {hourlyTrending && (
+                <p className='ms-2 video-badge badge-hourly-gainer'>
+                  <FiArrowUp className='me-1' /> Top Hourly
+                </p>
+              )}
+              {dailyTrending && (
+                <p className='ms-2 video-badge badge-daily-gainer'>
+                  <GiSandsOfTime className='me-1' /> Top Daily
+                </p>
+              )}
               {milestone && (
                 <p className={`ms-2 video-badge ${badgeClass}`}>
                   <BsEyeFill className='me-1' /> {milestone}

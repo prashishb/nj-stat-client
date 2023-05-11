@@ -23,6 +23,29 @@ const ContentContainer = ({
   const trackContainerRef = useRef(null);
   const albumContainerRefs = useRef([]);
 
+  // const handleScreenshot = (event) => {
+  //   const index = event.currentTarget.getAttribute('data-album-index');
+  //   const ref =
+  //     index !== null
+  //       ? albumContainerRefs.current[index]
+  //       : trackContainerRef.current;
+  //   if (!ref) return;
+  //   html2canvas(ref, {
+  //     allowTaint: false,
+  //     useCORS: true,
+  //     height: ref.offsetHeight - 7,
+  //     padding: 2,
+  //     ignoreElements: (element) => element.id === 'screenshot-icon',
+  //   }).then((canvas) => {
+  //     const link = document.createElement('a');
+  //     link.href = canvas.toDataURL();
+  //     link.download = createFileName(
+  //       `spotify_${ref.id}_${formatDateNew(updatedAt)}`
+  //     );
+  //     link.click();
+  //   });
+  // };
+
   const handleScreenshot = (event) => {
     const index = event.currentTarget.getAttribute('data-album-index');
     const ref =
@@ -37,12 +60,30 @@ const ContentContainer = ({
       padding: 2,
       ignoreElements: (element) => element.id === 'screenshot-icon',
     }).then((canvas) => {
-      const link = document.createElement('a');
-      link.href = canvas.toDataURL();
-      link.download = createFileName(
-        `spotify_${ref.id}_${formatDateNew(updatedAt)}`
-      );
-      link.click();
+      canvas.toBlob((blob) => {
+        if (navigator.share) {
+          // Web Share API is supported
+          const file = new File(
+            [blob],
+            createFileName(`spotify_${ref.id}_${formatDateNew(updatedAt)}`),
+            { type: 'image/png' }
+          );
+          navigator
+            .share({
+              files: [file],
+              title: 'Share this screenshot',
+            })
+            .catch((error) => console.log('Sharing failed', error));
+        } else {
+          // Fallback for browsers that don't support the Web Share API
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = createFileName(
+            `spotify_${ref.id}_${formatDateNew(updatedAt)}`
+          );
+          link.click();
+        }
+      });
     });
   };
 

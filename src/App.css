@@ -26,10 +26,17 @@ body.dark {
   transition: all 0.3s ease;
 }
 
-/* .album-container .card:hover,
+.album-container .card:hover,
 .track-container .card:hover {
-  filter: brightness(1.1);
-} */
+  filter: none;
+}
+
+@media (min-width: 768px) {
+  .album-container .card:hover,
+  .track-container .card:hover {
+    filter: brightness(1.1);
+  }
+}
 
 .card-img-top {
   border-radius: 0 !important;

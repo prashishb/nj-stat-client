@@ -61,7 +61,7 @@ const YouTube = () => {
   if (isLoading) return <Spinner />;
   return (
     <div className='container mt-2 mb-2'>
-      <h1 className='text-center'>Updated: {formatDate(updatedAt)}</h1>
+      <h1 className='text-center fs-4'>Updated: {formatDate(updatedAt)}</h1>
       <div className='row mb-2 mx-2'>
         <div className='col d-flex justify-content-start p-0 mb-2'>
           <div className='dropdown'>

@@ -24,29 +24,6 @@ const ContentContainer = ({
   const trackContainerRef = useRef(null);
   const albumContainerRefs = useRef([]);
 
-  // const handleScreenshot = (event) => {
-  //   const index = event.currentTarget.getAttribute('data-album-index');
-  //   const ref =
-  //     index !== null
-  //       ? albumContainerRefs.current[index]
-  //       : trackContainerRef.current;
-  //   if (!ref) return;
-  //   html2canvas(ref, {
-  //     allowTaint: false,
-  //     useCORS: true,
-  //     height: ref.offsetHeight - 7,
-  //     padding: 2,
-  //     ignoreElements: (element) => element.id === 'screenshot-icon',
-  //   }).then((canvas) => {
-  //     const link = document.createElement('a');
-  //     link.href = canvas.toDataURL();
-  //     link.download = createFileName(
-  //       `spotify_${ref.id}_${formatDateNew(updatedAt)}`
-  //     );
-  //     link.click();
-  //   });
-  // };
-
   const handleScreenshot = (event) => {
     const index = event.currentTarget.getAttribute('data-album-index');
     const ref =

@@ -33,7 +33,6 @@ const Navbar = () => {
 
   const toggleDropdown = () => {
     setDropdownOpen((currentDropdownOpen) => !currentDropdownOpen);
-    console.log(dropdownOpen);
   };
 
   const closeNavbar = () => {

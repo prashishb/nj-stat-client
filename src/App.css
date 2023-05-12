@@ -63,12 +63,12 @@ body.dark {
   margin-bottom: 2rem;
 }
 
-.screenshot-icon {
+.screenshot-share-icon {
   cursor: pointer;
   transition: transform 0.3s ease;
 }
 
-.screenshot-icon:hover {
+.screenshot-share-icon:hover {
   transform: scale(1.1);
 }
 

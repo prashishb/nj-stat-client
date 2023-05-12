@@ -5,6 +5,7 @@ import { formatDate, formatDateNew } from '../utils/valueFormatter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp, faSort } from '@fortawesome/free-solid-svg-icons';
 import { RiScreenshot2Fill } from 'react-icons/ri';
+import { FaShareSquare } from 'react-icons/fa';
 import SongAlbumCard from './SongAlbumCard';
 
 import { createFileName } from 'use-react-screenshot';
@@ -166,12 +167,21 @@ const ContentContainer = ({
               </div>
             </div>
             <div>
-              <RiScreenshot2Fill
-                id='screenshot-icon'
-                className='screenshot-icon ms-2'
-                size={25}
-                onClick={handleScreenshot}
-              />
+              {isMobile ? (
+                <FaShareSquare
+                  id='screenshot-share-icon'
+                  className='screenshot-share-icon ms-2'
+                  size={25}
+                  onClick={handleScreenshot}
+                />
+              ) : (
+                <RiScreenshot2Fill
+                  id='screenshot-share-icon'
+                  className='screenshot-share-icon ms-2'
+                  size={25}
+                  onClick={handleScreenshot}
+                />
+              )}
             </div>
           </div>
           {sortedTracks().map((track) => (

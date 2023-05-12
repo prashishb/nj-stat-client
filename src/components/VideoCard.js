@@ -25,11 +25,7 @@ const VideoCard = ({ video, hourlyTrending }) => {
       <div className='backdrop-filter-overlay'></div>
       <div className='card-body video-card-body p-2'>
         <div className='d-flex align-items-start mb-3'>
-          <img
-            className='video-card-img me-3 border-secondary'
-            src={image}
-            alt={title}
-          />
+          <img className='video-card-img me-3' src={image} alt={title} />
           <div>
             <h5 className='card-title video-card-title text-wrap'>{title}</h5>
             <div className='d-flex'>

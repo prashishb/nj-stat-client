@@ -37,7 +37,7 @@ const ContentContainer = ({
       useCORS: true,
       height: ref.offsetHeight - 7,
       padding: 2,
-      ignoreElements: (element) => element.id === 'screenshot-icon',
+      ignoreElements: (element) => element.id === 'screenshot-share-icon',
     }).then((canvas) => {
       canvas.toBlob((blob) => {
         if (isMobile && navigator.share) {
@@ -225,6 +225,7 @@ const ContentContainer = ({
                   id='screenshot-share-icon'
                   className='screenshot-share-icon ms-2'
                   size={25}
+                  data-album-index={index}
                   onClick={handleScreenshot}
                 />
               ) : (
@@ -232,6 +233,7 @@ const ContentContainer = ({
                   id='screenshot-share-icon'
                   className='screenshot-share-icon ms-2'
                   size={25}
+                  data-album-index={index}
                   onClick={handleScreenshot}
                 />
               )}

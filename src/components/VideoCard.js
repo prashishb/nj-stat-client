@@ -15,6 +15,7 @@ const VideoCard = ({ video, hourlyTrending }) => {
 
   const milestone = checkMilestone(viewCount);
   const badgeClass = getBadgeClass(viewCount);
+  const titleWithoutNewJeans = title.replace('NewJeans (뉴진스)', '');
 
   return (
     <div
@@ -27,7 +28,9 @@ const VideoCard = ({ video, hourlyTrending }) => {
         <div className='d-flex align-items-start mb-3'>
           <img className='video-card-img me-3' src={image} alt={title} />
           <div>
-            <h5 className='card-title video-card-title text-wrap'>{title}</h5>
+            <h5 className='card-title video-card-title text-wrap'>
+              {titleWithoutNewJeans}
+            </h5>
             <div className='d-flex'>
               <p className='video-card-likes'>
                 <FiThumbsUp className='me-1' />{' '}

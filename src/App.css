@@ -149,10 +149,27 @@ body.dark {
   align-items: center;
   justify-content: center;
   height: 100%;
+  cursor: pointer;
+}
+
+.stat-container:hover {
+  filter: brightness(1.05);
+}
+
+.stat-container.global-rank {
+  cursor: default;
+}
+
+.stat-container.global-rank:hover {
+  filter: none;
 }
 
 .stat-label {
   font-size: 0.75rem;
+}
+
+.open-chart:hover {
+  text-decoration: underline;
 }
 
 .change {
@@ -357,12 +374,16 @@ body.dark {
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
-  position: sticky;
+  position: sticky !important;
+  background-color: #212529;
   top: 0;
-  z-index: 100;
+  z-index: 1;
 
   @media (min-width: 768px) {
     padding: 1rem 2rem;
+    position: relative !important;
+    background-color: transparent !important;
+    z-index: 0;
   }
 }
 
@@ -507,6 +528,10 @@ body.dark {
 }
 
 /* BUTTONS */
+
+.btn-group > .btn-check:checked + .btn {
+  z-index: 0 !important;
+}
 
 .btn-green-moon {
   color: white !important;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { formatDate } from '../utils/valueFormatter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -6,6 +6,8 @@ import {
   faArrowDown,
   faMinus,
 } from '@fortawesome/free-solid-svg-icons';
+import { fetchHistoricalSpotifyArtistStats } from '../services/spotifyStatsService';
+import ChartModal from './ChartModal';
 
 const ChangeIcon = ({ change }) => {
   if (change > 0) {
@@ -24,6 +26,40 @@ const ArtistCard = ({ artist }) => {
   const changeInWorldRank = changes.worldRank;
   const changeInFollowers = changes.followers;
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [chartData, setChartData] = useState([]);
+  const [chartTitle, setChartTitle] = useState('');
+  const [theme, setTheme] = useState(
+    document.documentElement.className || 'light'
+  );
+
+  useEffect(() => {
+    const classObserver = new MutationObserver(() => {
+      setTheme(document.documentElement.className);
+    });
+
+    classObserver.observe(document.documentElement, { attributes: true });
+
+    return () => classObserver.disconnect();
+  }, []);
+
+  const handleStatClick = async (statType) => {
+    try {
+      const res = await fetchHistoricalSpotifyArtistStats(statType);
+      if (Array.isArray(res.data)) {
+        setChartData(res.data);
+        setChartTitle(
+          statType === 'monthlyListeners' ? 'Monthly Listeners' : 'Followers'
+        );
+        setIsModalOpen(true);
+      } else {
+        console.error('Unexpected data format: ', res.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className='card artist-card'>
       <div className='artist-card-container'>
@@ -40,11 +76,16 @@ const ArtistCard = ({ artist }) => {
       <div className='card-body artist-body bg-light-subtle bg-opacity-10'>
         <div className='row justify-content-around'>
           <div className='col-sm-4 col-md-4 col-lg-4 col-xl-4 col-4 text-center border-end'>
-            <div className='stat-container'>
+            <div
+              className='stat-container'
+              onClick={() => handleStatClick('monthlyListeners')}
+            >
               <p className='stat-label text-truncate text-muted mb-2 mt-1'>
                 Monthly Listeners
               </p>
-              <h6>{monthlyListeners.toLocaleString()}</h6>
+              <h6 className='open-chart'>
+                {monthlyListeners.toLocaleString()}
+              </h6>
               <div className='change'>
                 <ChangeIcon change={changeInMonthlyListeners} />
                 {changeInMonthlyListeners !== 0 && (
@@ -62,7 +103,7 @@ const ArtistCard = ({ artist }) => {
             </div>
           </div>
           <div className='col-sm-4 col-md-4 col-lg-4 col-xl-4 col-4 text-center border-end'>
-            <div className='stat-container'>
+            <div className='stat-container global-rank'>
               <p className='stat-label text-truncate text-muted mb-2 mt-1'>
                 Global Rank
               </p>
@@ -84,11 +125,14 @@ const ArtistCard = ({ artist }) => {
             </div>
           </div>
           <div className='col-sm-4 col-md-4 col-lg-4 col-xl-4 col-4 text-center'>
-            <div className='stat-container'>
+            <div
+              className='stat-container'
+              onClick={() => handleStatClick('followers')}
+            >
               <p className='stat-label text-truncate text-muted mb-2 mt-1'>
                 Followers
               </p>
-              <h6>{followers.toLocaleString()}</h6>
+              <h6 className='open-chart'>{followers.toLocaleString()}</h6>
               <div className='change'>
                 <ChangeIcon change={changeInFollowers} />
                 {changeInFollowers !== 0 && (
@@ -107,6 +151,13 @@ const ArtistCard = ({ artist }) => {
           </div>
         </div>
       </div>
+      <ChartModal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        data={chartData}
+        title={chartTitle}
+        theme={theme}
+      />
     </div>
   );
 };

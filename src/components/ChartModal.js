@@ -64,6 +64,9 @@ const ChartModal = ({ isOpen, onRequestClose, data, title, theme }) => {
     },
     yAxis: {
       labels: {
+        formatter: function () {
+          return (this.value / 1000000).toFixed(1) + 'M';
+        },
         align: 'left',
         style: {
           color: theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'black',

@@ -61,6 +61,17 @@ const ChartModal = ({ isOpen, onRequestClose, data, title, theme }) => {
           color: theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'black',
         },
       },
+      events: {
+        setExtremes: function (e) {
+          const diff = e.max - e.min;
+          const sixMonths = 15552000000;
+          this.series[0].update({
+            dataGrouping: {
+              enabled: diff < sixMonths ? true : false,
+            },
+          });
+        },
+      },
     },
     yAxis: {
       labels: {
@@ -72,7 +83,6 @@ const ChartModal = ({ isOpen, onRequestClose, data, title, theme }) => {
           color: theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'black',
         },
       },
-
       gridLineColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : '#e9ecef',
     },
     series: [
@@ -133,6 +143,7 @@ const ChartModal = ({ isOpen, onRequestClose, data, title, theme }) => {
         color: 'silver',
         fontWeight: 'bold',
       },
+      selected: 0, // Default to 'All'
       buttons: [
         {
           type: 'month',
@@ -159,7 +170,6 @@ const ChartModal = ({ isOpen, onRequestClose, data, title, theme }) => {
           text: 'All',
         },
       ],
-      selected: 0, // Default to 'All'
       inputEnabled: false,
       backgroundColor:
         theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : '#e9ecef',
@@ -178,7 +188,11 @@ const ChartModal = ({ isOpen, onRequestClose, data, title, theme }) => {
           previousPoint = index > 0 ? point.series.yData[index - 1] : null;
 
           const change = previousPoint != null ? point.y - previousPoint : 0;
-          const changeText = change > 0 ? `+${change}` : change;
+          const changeText =
+            change > 0
+              ? `+${Highcharts.numberFormat(change, 0, '.', ',')}`
+              : Highcharts.numberFormat(change, 0, '.', ',');
+
           valChange = `<br/><span style="color: ${point.color}">\u25CF</span> ${
             point.series.name
           }: <b>${Highcharts.numberFormat(
@@ -186,7 +200,7 @@ const ChartModal = ({ isOpen, onRequestClose, data, title, theme }) => {
             0,
             '.',
             ','
-          )} (${Highcharts.numberFormat(changeText, 0, '.', ',')})</b>`;
+          )} (${changeText})</b>`;
         });
         return `
           <div style="display: flex; flex-direction: column; gap: 1rem;">
@@ -236,6 +250,9 @@ const ChartModal = ({ isOpen, onRequestClose, data, title, theme }) => {
     },
     plotOptions: {
       series: {
+        dataGrouping: {
+          enabled: false,
+        },
         pointStart:
           sortedData.length > 0
             ? moment(sortedData[0][0]).format('YYYY-MM-DD')

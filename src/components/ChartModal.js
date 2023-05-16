@@ -251,7 +251,7 @@ const ChartModal = ({ isOpen, onRequestClose, data, title, theme }) => {
     plotOptions: {
       series: {
         dataGrouping: {
-          enabled: false,
+          enabled: true,
         },
         pointStart:
           sortedData.length > 0

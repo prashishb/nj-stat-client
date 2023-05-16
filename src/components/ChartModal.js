@@ -164,7 +164,34 @@ const ChartModal = ({ isOpen, onRequestClose, data, title, theme }) => {
     tooltip: {
       split: false,
       shared: true,
-      xDateFormat: '%A, %b %e, %Y',
+      xDateFormat: '%b %e, %Y',
+      formatter: function () {
+        const date = Highcharts.dateFormat('%b %e, %Y', this.x);
+        let previousPoint;
+        let valChange;
+
+        this.points.forEach(function (point) {
+          const index = point.series.xData.indexOf(point.x);
+          previousPoint = index > 0 ? point.series.yData[index - 1] : null;
+
+          const change = previousPoint != null ? point.y - previousPoint : 0;
+          const changeText = change > 0 ? `+${change}` : change;
+          valChange = `<br/><span style="color: ${point.color}">\u25CF</span> ${
+            point.series.name
+          }: <b>${Highcharts.numberFormat(
+            point.y,
+            0,
+            '.',
+            ','
+          )} (${Highcharts.numberFormat(changeText, 0, '.', ',')})</b>`;
+        });
+        return `
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <span>${date}</span>
+            ${valChange}
+          </div>
+        `;
+      },
     },
     navigator: {
       enabled: true,

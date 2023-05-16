@@ -14,6 +14,7 @@ const ChartModal = ({ isOpen, onRequestClose, data, title, theme }) => {
       justifyContent: 'center',
       margin: 'auto',
       background: 'rgba(0, 0, 0, 0.5)',
+      zIndex: '1000',
     },
     content: {
       backgroundColor: theme === 'dark' ? '#212529' : '#fff',

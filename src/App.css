@@ -383,7 +383,6 @@ body.dark {
     padding: 1rem 2rem;
     position: relative !important;
     background-color: transparent !important;
-    z-index: 0;
   }
 }
 

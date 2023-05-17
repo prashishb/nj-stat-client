@@ -300,6 +300,9 @@ const ChartModal = ({ isOpen, onRequestClose, data, title, theme }) => {
       onRequestClose={onRequestClose}
       style={{ overlay: customStyles.overlay, content: customStyles.content }}
     >
+      <div className='modal-close' onClick={onRequestClose}>
+        X
+      </div>
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={'stockChart'}

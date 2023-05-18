@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { fetchVideoStats } from '../services/youtubeStatsService';
 import {
   getHourlyTrendingVideo,
@@ -6,11 +6,14 @@ import {
   getUpdatedAt,
   processVideos,
 } from '../utils/youtubeStatsUtils';
+import { getTimeUntilNextUpdate } from '../utils/helperUtils';
 
 export const useYouTubeStats = () => {
   const [videoData, setVideoData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [displayMode, setDisplayMode] = useState('All');
+
+  const INTERVAL = useRef(getTimeUntilNextUpdate());
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +25,8 @@ export const useYouTubeStats = () => {
       }
     };
     fetchData();
+    const interval = setInterval(fetchData, INTERVAL.current);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {

@@ -170,7 +170,7 @@ const ContentContainer = ({
                 <FaShareSquare
                   id='screenshot-share-icon'
                   className='screenshot-share-icon ms-2'
-                  size={25}
+                  size={20}
                   onClick={handleScreenshot}
                 />
               ) : (
@@ -219,23 +219,25 @@ const ContentContainer = ({
                   </div>
                 </div>
               )}
-              {isMobile ? (
-                <FaShareSquare
-                  id='screenshot-share-icon'
-                  className='screenshot-share-icon ms-2'
-                  size={25}
-                  data-album-index={index}
-                  onClick={handleScreenshot}
-                />
-              ) : (
-                <RiScreenshot2Fill
-                  id='screenshot-share-icon'
-                  className='screenshot-share-icon ms-2'
-                  size={25}
-                  data-album-index={index}
-                  onClick={handleScreenshot}
-                />
-              )}
+              <div>
+                {isMobile ? (
+                  <FaShareSquare
+                    id='screenshot-share-icon'
+                    className='screenshot-share-icon ms-2'
+                    size={20}
+                    data-album-index={index}
+                    onClick={handleScreenshot}
+                  />
+                ) : (
+                  <RiScreenshot2Fill
+                    id='screenshot-share-icon'
+                    className='screenshot-share-icon ms-2'
+                    size={25}
+                    data-album-index={index}
+                    onClick={handleScreenshot}
+                  />
+                )}
+              </div>
             </div>
             {albumData.tracks.map((track) => (
               <SongAlbumCard key={track.uri} track={track} />

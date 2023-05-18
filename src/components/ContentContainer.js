@@ -50,7 +50,6 @@ const ContentContainer = ({
           navigator
             .share({
               files: [file],
-              title: 'Share this screenshot',
             })
             .catch((error) => console.log('Sharing failed', error));
         } else {

@@ -20,7 +20,8 @@ const ChangeIcon = ({ change }) => {
 };
 
 const ArtistCard = ({ artist }) => {
-  const { name, current, changes, headerImageUrl, timestamp } = artist;
+  const { name, current, changes, headerImageUrl, timestamp, artistId } =
+    artist;
   const { monthlyListeners, worldRank, followers } = current;
   const changeInMonthlyListeners = changes.monthlyListeners;
   const changeInWorldRank = changes.worldRank;
@@ -45,7 +46,6 @@ const ArtistCard = ({ artist }) => {
 
   const handleStatClick = async (statType) => {
     try {
-      const artistId = '6HvZYsbFfjnjFrWF950C9d';
       const res = await fetchHistoricalSpotifyArtistStats(artistId, statType);
       if (Array.isArray(res.data)) {
         setChartData(res.data);

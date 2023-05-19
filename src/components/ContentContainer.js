@@ -91,53 +91,55 @@ const ContentContainer = ({
 
   return (
     <div className='content-container'>
-      {displayMode !== 'playlists' && (
-        <div className='container'>
-          <div className='row mb-2'>
-            <div className='col d-flex justify-content-start p-0'>
-              <DisplayModeToggle
-                displayMode={displayMode}
-                setDisplayMode={setDisplayMode}
-              />
-            </div>
-            <div className='col d-flex justify-content-end p-0'>
-              <div className='dropdown'>
-                <button
-                  className='btn btn-outline-green-moon dropdown-toggle'
-                  type='button'
-                  id='filterMenuButton'
-                  data-bs-toggle='dropdown'
-                  aria-expanded='false'
-                >
-                  <FontAwesomeIcon icon={faSort} /> Sort by: {filterOption}
-                </button>
-                <ul
-                  className='dropdown-menu'
-                  aria-labelledby='filterMenuButton'
-                  style={{ minWidth: '100%' }}
-                >
-                  <li>
-                    <button
-                      className='dropdown-item'
-                      onClick={() => setFilterOption('Daily')}
-                    >
-                      Daily Streams
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className='dropdown-item'
-                      onClick={() => setFilterOption('Total')}
-                    >
-                      Total Streams
-                    </button>
-                  </li>
-                </ul>
+      <div className='container'>
+        <div className='row mb-2'>
+          {tracks.length > 1 && (
+            <>
+              <div className='col d-flex justify-content-start p-0'>
+                <DisplayModeToggle
+                  displayMode={displayMode}
+                  setDisplayMode={setDisplayMode}
+                />
               </div>
-            </div>
-          </div>
+              <div className='col d-flex justify-content-end p-0'>
+                <div className='dropdown'>
+                  <button
+                    className='btn btn-outline-green-moon dropdown-toggle'
+                    type='button'
+                    id='filterMenuButton'
+                    data-bs-toggle='dropdown'
+                    aria-expanded='false'
+                  >
+                    <FontAwesomeIcon icon={faSort} /> Sort by: {filterOption}
+                  </button>
+                  <ul
+                    className='dropdown-menu'
+                    aria-labelledby='filterMenuButton'
+                    style={{ minWidth: '100%' }}
+                  >
+                    <li>
+                      <button
+                        className='dropdown-item'
+                        onClick={() => setFilterOption('Daily')}
+                      >
+                        Daily Streams
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        className='dropdown-item'
+                        onClick={() => setFilterOption('Total')}
+                      >
+                        Total Streams
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </>
+          )}
         </div>
-      )}
+      </div>
       {displayMode === 'all' ? (
         <div
           id='tracks'

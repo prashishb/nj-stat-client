@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ArtistCard from './ArtistCard';
 import ContentContainer from './ContentContainer';
 import { useSpotifyStats } from '../hooks/useSpotifyStats';
 import Spinner from './Spinner';
 
-const artistId = '6HvZYsbFfjnjFrWF950C9d';
+const artistIds = ['6HvZYsbFfjnjFrWF950C9d', '3BNhPTiKBExlE45mYeC9YY'];
 
 const Home = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const {
     isLoading,
     displayMode,
@@ -15,14 +17,33 @@ const Home = () => {
     tracks,
     albums,
     updatedAt,
-  } = useSpotifyStats(artistId);
+  } = useSpotifyStats(artistIds[currentIndex]);
+
+  const goNextArtist = () => {
+    if (currentIndex < artistIds.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  const goPreviousArtist = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
 
   if (isLoading) return <Spinner />;
+
   return (
     <div className='body-container mt-2 p-2'>
       <div className='container mb-2 artist-container pb-0 border bg-light-subtle bg-opacity-10'>
         {Object.keys(artistStats).length > 0 && (
-          <ArtistCard artist={artistStats} />
+          <ArtistCard
+            artist={artistStats}
+            goNextArtist={goNextArtist}
+            goPreviousArtist={goPreviousArtist}
+            currentIndex={currentIndex}
+            artistCount={artistIds.length}
+          />
         )}
       </div>
       <ContentContainer

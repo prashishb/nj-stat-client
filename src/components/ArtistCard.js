@@ -5,6 +5,8 @@ import {
   faArrowUp,
   faArrowDown,
   faMinus,
+  faArrowRight,
+  faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { fetchHistoricalSpotifyArtistStats } from '../services/spotifyStatsService';
 import ChartModal from './ChartModal';
@@ -19,13 +21,20 @@ const ChangeIcon = ({ change }) => {
   }
 };
 
-const ArtistCard = ({ artist }) => {
+const ArtistCard = ({
+  artist,
+  goNextArtist,
+  goPreviousArtist,
+  currentIndex,
+  artistCount,
+}) => {
   const { name, current, changes, headerImageUrl, timestamp, artistId } =
     artist;
   const { monthlyListeners, worldRank, followers } = current;
   const changeInMonthlyListeners = changes.monthlyListeners;
   const changeInWorldRank = changes.worldRank;
   const changeInFollowers = changes.followers;
+  const defualtImg = 'https://i.ibb.co/1ZmqTMG/1659632359-untitled-1-013.jpg';
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [chartData, setChartData] = useState([]);
@@ -65,13 +74,39 @@ const ArtistCard = ({ artist }) => {
     <div className='card artist-card'>
       <div className='artist-card-container'>
         <div className='header-image-container'>
-          <img src={headerImageUrl} className='header-image' alt={name} />
+          <img
+            src={headerImageUrl ? headerImageUrl : defualtImg}
+            className='header-image'
+            alt={name}
+          />
           <div className='overlay'></div>
           <h1 className='artist-name'>{name}</h1>
           <span className='d-flex flex-row-reverse timestamp'>
             {/* if timestamp is null or undefined show current date else show timedate */}
             Updated: {formatDate(timestamp)}
           </span>
+          <a
+            href='/#'
+            className={
+              currentIndex === 0
+                ? 'disabled navigation-arrow left'
+                : 'navigation-arrow left'
+            }
+            onClick={goPreviousArtist}
+          >
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </a>
+          <a
+            href='/#'
+            className={
+              currentIndex === artistCount - 1
+                ? 'disabled navigation-arrow right'
+                : 'navigation-arrow right'
+            }
+            onClick={goNextArtist}
+          >
+            <FontAwesomeIcon icon={faArrowRight} />
+          </a>
         </div>
       </div>
       <div className='card-body artist-body bg-light-subtle bg-opacity-10'>

@@ -811,3 +811,28 @@ body.dark {
 .modal-close:hover {
   color: #fff;
 }
+
+.artist-navigation a.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.navigation-arrow {
+  position: absolute;
+  top: 50%;
+  color: #ffffff; /* Or any color you prefer for the arrows */
+  font-size: 1.5rem; /* Adjust size as needed */
+}
+
+.navigation-arrow.left {
+  left: 10px;
+}
+
+.navigation-arrow.right {
+  right: 10px;
+}
+
+.navigation-arrow.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}

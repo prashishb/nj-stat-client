@@ -15,7 +15,7 @@ const SongAlbumCard = ({ track }) => {
         </div>
         <div className='col-6 col-md-7'>
           <div className='card-body'>
-            <h5 className='card-title'>{track.name}</h5>
+            <h5 className='card-title fs-6 text-truncate'>{track.name}</h5>
           </div>
         </div>
         <div className='col-4 col-md-4'>

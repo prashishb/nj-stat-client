@@ -820,8 +820,11 @@ body.dark {
 .navigation-arrow {
   position: absolute;
   top: 50%;
-  color: #ffffff; /* Or any color you prefer for the arrows */
-  font-size: 1.5rem; /* Adjust size as needed */
+  color: #ffffff;
+  font-size: 1.5rem;
+  border: none;
+  background: transparent;
+  padding: 0;
 }
 
 .navigation-arrow.left {

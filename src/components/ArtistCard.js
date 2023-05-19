@@ -85,8 +85,7 @@ const ArtistCard = ({
             {/* if timestamp is null or undefined show current date else show timedate */}
             Updated: {formatDate(timestamp)}
           </span>
-          <a
-            href='/#'
+          <button
             className={
               currentIndex === 0
                 ? 'disabled navigation-arrow left'
@@ -95,9 +94,8 @@ const ArtistCard = ({
             onClick={goPreviousArtist}
           >
             <FontAwesomeIcon icon={faArrowLeft} />
-          </a>
-          <a
-            href='/#'
+          </button>
+          <button
             className={
               currentIndex === artistCount - 1
                 ? 'disabled navigation-arrow right'
@@ -106,7 +104,7 @@ const ArtistCard = ({
             onClick={goNextArtist}
           >
             <FontAwesomeIcon icon={faArrowRight} />
-          </a>
+          </button>
         </div>
       </div>
       <div className='card-body artist-body bg-light-subtle bg-opacity-10'>

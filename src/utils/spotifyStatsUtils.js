@@ -1,12 +1,14 @@
 export const getUpdatedAt = (songAlbumStats) => {
   return (
     songAlbumStats.length > 0 &&
-    songAlbumStats.reduce((acc, curr) => {
-      const latestTrack = curr.tracks.reduce((acc, curr) => {
-        return acc.updatedAt > curr.updatedAt ? acc : curr;
-      });
-      return acc.updatedAt > latestTrack.updatedAt ? acc : latestTrack;
-    }).updatedAt
+    (songAlbumStats.length === 1
+      ? songAlbumStats[0].tracks[0].updatedAt
+      : songAlbumStats.reduce((acc, curr) => {
+          const latestTrack = curr.tracks.reduce((acc, curr) => {
+            return acc.updatedAt > curr.updatedAt ? acc : curr;
+          });
+          return acc.updatedAt > latestTrack.updatedAt ? acc : latestTrack;
+        }).updatedAt)
   );
 };
 

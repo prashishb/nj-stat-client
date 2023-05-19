@@ -10,7 +10,7 @@ import {
 } from '../utils/spotifyStatsUtils';
 import { getTimeUntilNextUpdate } from '../utils/helperUtils';
 
-export const useSpotifyStats = () => {
+export const useSpotifyStats = (artistId) => {
   const [songAlbumStats, setSongAlbumStats] = useState([]);
   const [artistStats, setArtistStats] = useState({});
   const [displayMode, setDisplayMode] = useState('all');
@@ -21,8 +21,8 @@ export const useSpotifyStats = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const songAlbumData = await fetchSongAlbumStats();
-        const artistData = await fetchArtistStats();
+        const songAlbumData = await fetchSongAlbumStats(artistId);
+        const artistData = await fetchArtistStats(artistId);
         setSongAlbumStats(songAlbumData);
         setArtistStats(artistData);
       } catch (err) {
@@ -32,7 +32,7 @@ export const useSpotifyStats = () => {
     fetchData();
     const interval = setInterval(fetchData, INTERVAL.current);
     return () => clearInterval(interval);
-  }, []);
+  }, [artistId]);
 
   useEffect(() => {
     if (songAlbumStats.length && Object.keys(artistStats).length) {

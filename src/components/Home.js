@@ -4,6 +4,8 @@ import ContentContainer from './ContentContainer';
 import { useSpotifyStats } from '../hooks/useSpotifyStats';
 import Spinner from './Spinner';
 
+const artistId = '6HvZYsbFfjnjFrWF950C9d';
+
 const Home = () => {
   const {
     isLoading,
@@ -13,7 +15,7 @@ const Home = () => {
     tracks,
     albums,
     updatedAt,
-  } = useSpotifyStats();
+  } = useSpotifyStats(artistId);
 
   if (isLoading) return <Spinner />;
   return (

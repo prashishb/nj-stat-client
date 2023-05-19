@@ -45,7 +45,8 @@ const ArtistCard = ({ artist }) => {
 
   const handleStatClick = async (statType) => {
     try {
-      const res = await fetchHistoricalSpotifyArtistStats(statType);
+      const artistId = '6HvZYsbFfjnjFrWF950C9d';
+      const res = await fetchHistoricalSpotifyArtistStats(artistId, statType);
       if (Array.isArray(res.data)) {
         setChartData(res.data);
         setChartTitle(

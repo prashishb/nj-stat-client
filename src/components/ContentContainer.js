@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import DisplayModeToggle from './DisplayModeToggle';
 import { formatDate, formatDateNew } from '../utils/valueFormatter';
 
@@ -89,18 +89,34 @@ const ContentContainer = ({
     return sorted;
   };
 
+  // count the albums with more than 1 track
+  const albumsWithMoreThanOneTrack = useMemo(
+    () => groupedTracksByAlbum.filter((album) => album.tracks.length > 1),
+    [groupedTracksByAlbum]
+  );
+  const hasMultipleAlbums = albumsWithMoreThanOneTrack.length > 1;
+  const hasMultipleTracks = tracks.length > 1;
+
+  useEffect(() => {
+    if (!hasMultipleAlbums && displayMode === 'albums') {
+      setDisplayMode('all');
+    }
+  }, [hasMultipleAlbums, displayMode, setDisplayMode]);
+
   return (
     <div className='content-container'>
       <div className='container'>
         <div className='row mb-2'>
-          {tracks.length > 1 && (
+          {hasMultipleTracks && (
             <>
-              <div className='col d-flex justify-content-start p-0'>
-                <DisplayModeToggle
-                  displayMode={displayMode}
-                  setDisplayMode={setDisplayMode}
-                />
-              </div>
+              {hasMultipleAlbums && (
+                <div className='col d-flex justify-content-start p-0'>
+                  <DisplayModeToggle
+                    displayMode={displayMode}
+                    setDisplayMode={setDisplayMode}
+                  />
+                </div>
+              )}
               <div className='col d-flex justify-content-end p-0'>
                 <div className='dropdown'>
                   <button

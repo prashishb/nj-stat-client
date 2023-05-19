@@ -141,7 +141,7 @@ const ArtistCard = ({
               <p className='stat-label text-truncate text-muted mb-2 mt-1'>
                 Global Rank
               </p>
-              <h6>{worldRank.toLocaleString()}</h6>
+              <h6>{worldRank === 0 ? 'N/A' : worldRank.toLocaleString()}</h6>
               <div className='change'>
                 <ChangeIcon change={changeInWorldRank} />
                 {changeInWorldRank !== 0 && (

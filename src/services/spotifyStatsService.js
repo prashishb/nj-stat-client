@@ -5,7 +5,7 @@ const API_BASE_URL = 'https://api.njstats.com';
 export const fetchSongAlbumStats = async (artistId) => {
   try {
     const res = await axios.get(
-      `${API_BASE_URL}/spotify-song-album/${artistId}`
+      `${API_BASE_URL}/spotify/artist/${artistId}/tracks`
     );
     return res.data;
   } catch (err) {
@@ -16,7 +16,9 @@ export const fetchSongAlbumStats = async (artistId) => {
 
 export const fetchArtistStats = async (artistId) => {
   try {
-    const res = await axios.get(`${API_BASE_URL}/spotify-artist/${artistId}`);
+    const res = await axios.get(
+      `${API_BASE_URL}/spotify/artist/${artistId}/stats`
+    );
     return res.data;
   } catch (err) {
     console.error('Error: Failed to fetch artist stats', err);
@@ -26,7 +28,7 @@ export const fetchArtistStats = async (artistId) => {
 
 export const fetchGlobalChart = async () => {
   try {
-    const res = await axios.get(`${API_BASE_URL}/spotify-chart`);
+    const res = await axios.get(`${API_BASE_URL}/spotify/charts/global`);
     return res.data;
   } catch (err) {
     console.error('Error: Failed to fetch global chart', err);
@@ -37,7 +39,7 @@ export const fetchGlobalChart = async () => {
 export const fetchHistoricalSpotifyArtistStats = async (artistId, statType) => {
   try {
     const res = await axios.get(
-      `${API_BASE_URL}/spotify-artist/${artistId}/historical/${statType}`
+      `${API_BASE_URL}/spotify/artist/${artistId}/stats/${statType}/historical`
     );
     return res.data;
   } catch (err) {

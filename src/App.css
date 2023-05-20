@@ -839,3 +839,10 @@ body.dark {
   opacity: 0.3;
   pointer-events: none;
 }
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

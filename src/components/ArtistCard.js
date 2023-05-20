@@ -11,6 +11,8 @@ import {
 import { fetchHistoricalSpotifyArtistStats } from '../services/spotifyStatsService';
 import ChartModal from './ChartModal';
 
+import { SpinnerCircularFixed } from 'spinners-react';
+
 const ChangeIcon = ({ change }) => {
   if (change > 0) {
     return <FontAwesomeIcon icon={faArrowUp} />;
@@ -27,6 +29,7 @@ const ArtistCard = ({
   goPreviousArtist,
   currentIndex,
   artistCount,
+  isLoadingArtist,
 }) => {
   const { name, current, changes, headerImageUrl, timestamp, artistId } =
     artist;
@@ -71,7 +74,10 @@ const ArtistCard = ({
   };
 
   return (
-    <div className='card artist-card'>
+    <div
+      className='card artist-card'
+      style={{ opacity: isLoadingArtist ? 0.5 : 1 }}
+    >
       <div className='artist-card-container'>
         <div className='header-image-container'>
           <img
@@ -79,7 +85,20 @@ const ArtistCard = ({
             className='header-image'
             alt={name}
           />
-          <div className='overlay'></div>
+          <div className='overlay'>
+            {isLoadingArtist && (
+              <div className='loader'>
+                <SpinnerCircularFixed
+                  size={50}
+                  thickness={200}
+                  speed={100}
+                  color='rgb(86,171,47)'
+                  secondaryColor='#adb5bd'
+                  margin='0 auto'
+                />
+              </div>
+            )}
+          </div>
           <h1 className='artist-name'>{name}</h1>
           <span className='d-flex flex-row-reverse timestamp'>
             {/* if timestamp is null or undefined show current date else show timedate */}

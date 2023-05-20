@@ -8,6 +8,7 @@ const artistIds = ['6HvZYsbFfjnjFrWF950C9d', '3BNhPTiKBExlE45mYeC9YY'];
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoadingArtist, setIsLoadingArtist] = useState(false);
 
   const {
     isLoading,
@@ -17,10 +18,11 @@ const Home = () => {
     tracks,
     albums,
     updatedAt,
-  } = useSpotifyStats(artistIds[currentIndex]);
+  } = useSpotifyStats(artistIds[currentIndex], setIsLoadingArtist);
 
   const goNextArtist = () => {
     if (currentIndex < artistIds.length - 1) {
+      setIsLoadingArtist(true);
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -43,6 +45,7 @@ const Home = () => {
             goPreviousArtist={goPreviousArtist}
             currentIndex={currentIndex}
             artistCount={artistIds.length}
+            isLoadingArtist={isLoadingArtist}
           />
         )}
       </div>

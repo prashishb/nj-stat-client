@@ -77,7 +77,13 @@ const ChartModal = ({ isOpen, onRequestClose, data, title, theme }) => {
     yAxis: {
       labels: {
         formatter: function () {
-          return (this.value / 1000000).toFixed(1) + 'M';
+          if (this.value >= 1000000) {
+            return (this.value / 1000000).toFixed(1) + 'M';
+          } else if (this.value >= 1000) {
+            return (this.value / 1000).toFixed(1) + 'K';
+          } else {
+            return this.value;
+          }
         },
         align: 'left',
         style: {

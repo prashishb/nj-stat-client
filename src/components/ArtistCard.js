@@ -5,8 +5,8 @@ import {
   faArrowUp,
   faArrowDown,
   faMinus,
-  faArrowRight,
-  faArrowLeft,
+  faAngleRight,
+  faAngleLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { fetchHistoricalSpotifyArtistStats } from '../services/spotifyStatsService';
 import ChartModal from './ChartModal';
@@ -112,7 +112,7 @@ const ArtistCard = ({
             }
             onClick={goPreviousArtist}
           >
-            <FontAwesomeIcon icon={faArrowLeft} />
+            <FontAwesomeIcon icon={faAngleLeft} />
           </button>
           <button
             className={
@@ -122,7 +122,7 @@ const ArtistCard = ({
             }
             onClick={goNextArtist}
           >
-            <FontAwesomeIcon icon={faArrowRight} />
+            <FontAwesomeIcon icon={faAngleRight} />
           </button>
         </div>
       </div>

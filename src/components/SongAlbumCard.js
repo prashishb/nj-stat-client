@@ -1,6 +1,20 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowUp,
+  faArrowDown,
+  faMinus,
+} from '@fortawesome/free-solid-svg-icons';
+
+const ChangeIcon = ({ change }) => {
+  if (change > 0) {
+    return <FontAwesomeIcon icon={faArrowUp} />;
+  } else if (change < 0) {
+    return <FontAwesomeIcon icon={faArrowDown} />;
+  } else {
+    return <FontAwesomeIcon icon={faMinus} />;
+  }
+};
 
 const SongAlbumCard = ({ track }) => {
   return (
@@ -29,9 +43,19 @@ const SongAlbumCard = ({ track }) => {
             }}
           >
             <span>{track.playcount.toLocaleString()}</span>
-            <div className='change-increase d-inline-block'>
-              <FontAwesomeIcon icon={faArrowUp} />{' '}
-              {track.dailyPlaycount.toLocaleString()}
+            <div className='change'>
+              <ChangeIcon change={track.dailyPlaycount} />
+              {track.dailyPlaycount !== 0 && (
+                <span
+                  className={
+                    track.dailyPlaycount > 0
+                      ? 'change-increase'
+                      : 'change-decrease'
+                  }
+                >
+                  {track.dailyPlaycount.toLocaleString()}
+                </span>
+              )}
             </div>
           </div>
         </div>

@@ -4,6 +4,6 @@ export const getTimeUntilNextUpdate = () => {
   const seconds = now.getSeconds();
   const milliseconds = now.getMilliseconds();
   const timeUntilNextHour =
-    3600000 - minutes * 60000 - seconds * 1000 - milliseconds + 60000;
+    3600000 - minutes * 60000 - seconds * 1000 - milliseconds + 30000;
   return timeUntilNextHour;
 };

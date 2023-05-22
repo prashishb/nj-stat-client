@@ -19,7 +19,7 @@ const ChangeIcon = ({ change }) => {
   } else if (change < 0) {
     return <FontAwesomeIcon icon={faArrowDown} />;
   } else {
-    return <FontAwesomeIcon icon={faMinus} className='text-body-emphasis' />;
+    return <FontAwesomeIcon icon={faMinus} className='text-body-tertiary' />;
   }
 };
 

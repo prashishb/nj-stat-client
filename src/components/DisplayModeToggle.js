@@ -42,7 +42,7 @@ const DisplayModeToggle = ({ displayMode, setDisplayMode }) => {
         Albums
       </label>
 
-      <input
+      {/* <input
         type='radio'
         className='btn-check'
         name='displayModeToggle'
@@ -56,7 +56,7 @@ const DisplayModeToggle = ({ displayMode, setDisplayMode }) => {
         htmlFor='playlists'
       >
         Playlists
-      </label>
+      </label> */}
     </div>
   );
 };

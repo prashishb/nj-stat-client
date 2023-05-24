@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ArtistCard from './ArtistCard';
-// import ContentContainer from './ContentContainer';
+import ContentContainer from './ContentContainer';
 import { useSpotifyStats } from '../hooks/useSpotifyStats';
 import Spinner from './Spinner';
 
@@ -12,12 +12,12 @@ const Home = () => {
 
   const {
     isLoading,
-    // displayMode,
-    // setDisplayMode,
+    displayMode,
+    setDisplayMode,
     artistStats,
-    // tracks,
-    // albums,
-    // updatedAt,
+    tracks,
+    albums,
+    updatedAt,
   } = useSpotifyStats(artistIds[currentIndex], setIsLoadingArtist);
 
   const goNextArtist = () => {
@@ -49,13 +49,13 @@ const Home = () => {
           />
         )}
       </div>
-      {/* <ContentContainer
+      <ContentContainer
         displayMode={displayMode}
         setDisplayMode={setDisplayMode}
         tracks={tracks}
         groupedTracksByAlbum={albums}
         updatedAt={updatedAt}
-      /> */}
+      />
     </div>
   );
 };

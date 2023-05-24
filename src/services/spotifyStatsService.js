@@ -48,6 +48,30 @@ export const fetchHistoricalSpotifyArtistStats = async (artistId, statType) => {
   }
 };
 
+export const fetchArtistPlaylistsData = async (artistId) => {
+  try {
+    const res = await axios.get(
+      `${API_BASE_URL}/spotify/artist/${artistId}/playlists`
+    );
+    return res.data;
+  } catch (err) {
+    console.error('Error: Failed to fetch artist playlists data', err);
+    throw err;
+  }
+};
+
+export const fetchTrackPlaylistsData = async (trackId) => {
+  try {
+    const res = await axios.get(
+      `${API_BASE_URL}/spotify/track/${trackId}/playlists`
+    );
+    return res.data;
+  } catch (err) {
+    console.error('Error: Failed to fetch playlist track playlists data', err);
+    throw err;
+  }
+};
+
 // TODO: Korean Charts (Melon, Genie, Bugs, FLO)
 // export const fetchMelonTop100 = async (date, hour) => {
 //   try {

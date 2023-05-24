@@ -41,6 +41,22 @@ const DisplayModeToggle = ({ displayMode, setDisplayMode }) => {
       >
         Albums
       </label>
+
+      <input
+        type='radio'
+        className='btn-check'
+        name='displayModeToggle'
+        id='playlists'
+        autoComplete='off'
+        checked={displayMode === 'playlists'}
+        onChange={() => handleClick('playlists')}
+      />
+      <label
+        className='btn btn-outline-green-moon button-transition'
+        htmlFor='playlists'
+      >
+        Playlists
+      </label>
     </div>
   );
 };

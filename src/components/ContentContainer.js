@@ -162,7 +162,7 @@ const ContentContainer = ({
           className='container track-container p-1 bg-body rounded-0'
           ref={trackContainerRef}
         >
-          <h2 className='mb-2'>All Discography</h2>
+          <h2 className='mb-2 fs-3'>All Discography</h2>
           <div className='d-flex gap-2 mb-2 pb-1 border-bottom justify-content-between'>
             <div className='total-playcount'>
               <span className='text-muted'>
@@ -205,7 +205,7 @@ const ContentContainer = ({
             <SongAlbumCard key={track.uri} track={track} />
           ))}
         </div>
-      ) : (
+      ) : displayMode === 'albums' ? (
         sortedGroupedTracksByAlbum().map((albumData, index) => (
           <div
             key={index}
@@ -213,7 +213,7 @@ const ContentContainer = ({
             ref={(el) => (albumContainerRefs.current[index] = el)}
             id={albumData.albumName}
           >
-            <h2 className='mb-2'>{albumData.albumName}</h2>
+            <h2 className='mb-2 fs-3'>{albumData.albumName}</h2>
             <div className='d-flex gap-2 mb-2 pb-1 border-bottom justify-content-between'>
               {albumData.tracks.length > 1 && (
                 <div>
@@ -262,6 +262,8 @@ const ContentContainer = ({
             ))}
           </div>
         ))
+      ) : (
+        <div className='container text-center'>WORK IN PROGRSS</div>
       )}
       <div className='col d-flex justify-content-center p-0 align-items-center mobile-hidden'>
         {updatedAt && (

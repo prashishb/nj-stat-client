@@ -1,17 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 import {
-  fetchSongAlbumStats,
+  // fetchSongAlbumStats,
   fetchArtistStats,
 } from '../services/spotifyStatsService';
-import {
-  getUpdatedAt,
-  processTracks,
-  processAlbums,
-} from '../utils/spotifyStatsUtils';
+// import {
+//   getUpdatedAt,
+//   processTracks,
+//   processAlbums,
+// } from '../utils/spotifyStatsUtils';
 import { getTimeUntilNextUpdate } from '../utils/helperUtils';
 
 export const useSpotifyStats = (artistId, setIsLoadingArtist) => {
-  const [songAlbumStats, setSongAlbumStats] = useState([]);
+  // const [songAlbumStats, setSongAlbumStats] = useState([]);
   const [artistStats, setArtistStats] = useState({});
   const [displayMode, setDisplayMode] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
@@ -22,9 +22,9 @@ export const useSpotifyStats = (artistId, setIsLoadingArtist) => {
     const fetchData = async () => {
       try {
         setIsLoadingArtist(true);
-        const songAlbumData = await fetchSongAlbumStats(artistId);
+        // const songAlbumData = await fetchSongAlbumStats(artistId);
         const artistData = await fetchArtistStats(artistId);
-        setSongAlbumStats(songAlbumData);
+        // setSongAlbumStats(songAlbumData);
         setArtistStats(artistData);
         setIsLoadingArtist(false);
       } catch (err) {
@@ -37,23 +37,28 @@ export const useSpotifyStats = (artistId, setIsLoadingArtist) => {
     return () => clearInterval(interval);
   }, [artistId, setIsLoadingArtist]);
 
+  // useEffect(() => {
+  //   if (songAlbumStats.length && Object.keys(artistStats).length) {
+  //     setIsLoading(false);
+  //   }
+  // }, [songAlbumStats, artistStats]);
   useEffect(() => {
-    if (songAlbumStats.length && Object.keys(artistStats).length) {
+    if (Object.keys(artistStats).length) {
       setIsLoading(false);
     }
-  }, [songAlbumStats, artistStats]);
+  }, [artistStats]);
 
-  const updatedAt = getUpdatedAt(songAlbumStats);
-  const tracks = processTracks(songAlbumStats);
-  const albums = processAlbums(songAlbumStats);
+  // const updatedAt = getUpdatedAt(songAlbumStats);
+  // const tracks = processTracks(songAlbumStats);
+  // const albums = processAlbums(songAlbumStats);
 
   return {
     isLoading,
     displayMode,
     setDisplayMode,
     artistStats,
-    tracks,
-    albums,
-    updatedAt,
+    // tracks,
+    // albums,
+    // updatedAt,
   };
 };

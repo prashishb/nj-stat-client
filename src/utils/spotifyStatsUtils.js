@@ -50,21 +50,23 @@ export const processTracks = (songAlbumStats) => {
 };
 
 export const processAlbums = (songAlbumStats) => {
-  const albums = songAlbumStats.map((album) => {
-    return {
-      name: album.name,
-      tracks: album.tracks.map((track) => {
-        return {
-          uri: track.uri,
-          name: track.name,
-          playcount: track.playcount,
-          imageUrl: track.imageUrl,
-          albumUri: `spotify.album:${album.albumId}`,
-          dailyPlaycount: track.dailyPlaycount,
-        };
-      }),
-    };
-  });
+  const albums = songAlbumStats
+    .filter((album) => !album.name.toLowerCase().includes('soundtrack'))
+    .map((album) => {
+      return {
+        name: album.name,
+        tracks: album.tracks.map((track) => {
+          return {
+            uri: track.uri,
+            name: track.name,
+            playcount: track.playcount,
+            imageUrl: track.imageUrl,
+            albumUri: `spotify.album:${album.albumId}`,
+            dailyPlaycount: track.dailyPlaycount,
+          };
+        }),
+      };
+    });
 
   const filteredGroupedTracksByAlbum = albums.filter(
     (albumData) => albumData.tracks.length > 1

@@ -28,7 +28,7 @@ const VideoCard = ({ video, hourlyTrending }) => {
         <div className='d-flex align-items-start mb-3'>
           <img className='video-card-img me-3' src={image} alt={title} />
           <div>
-            <h5 className='card-title video-card-title text-wrap'>
+            <h5 className='card-title video-card-title text-truncate'>
               {titleWithoutNewJeans}
             </h5>
             <div className='d-flex'>

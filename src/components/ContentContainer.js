@@ -162,43 +162,46 @@ const ContentContainer = ({
           className='container track-container p-1 bg-body rounded-0'
           ref={trackContainerRef}
         >
-          <h2 className='mb-2 fs-3'>All Discography</h2>
-          <div className='d-flex gap-2 mb-2 pb-1 border-bottom justify-content-between'>
-            <div className='total-playcount'>
-              <span className='text-muted'>
-                {tracks
-                  .reduce(
-                    (accumulator, track) => accumulator + track.playcount,
-                    0
-                  )
-                  .toLocaleString()}
-              </span>
-              <div className='change-increase-totals d-inline-block ms-1'>
-                <FontAwesomeIcon icon={faArrowUp} />{' '}
-                {tracks
-                  .reduce(
-                    (accumulator, track) => accumulator + track.dailyPlaycount,
-                    0
-                  )
-                  .toLocaleString()}
+          <div>
+            <h2 className='mb-2 fs-3'>All Discography</h2>
+            <div className='d-flex gap-2 mb-2 pb-1 border-bottom justify-content-between'>
+              <div className='total-playcount'>
+                <span className='text-muted'>
+                  {tracks
+                    .reduce(
+                      (accumulator, track) => accumulator + track.playcount,
+                      0
+                    )
+                    .toLocaleString()}
+                </span>
+                <div className='change-increase-totals d-inline-block ms-1'>
+                  <FontAwesomeIcon icon={faArrowUp} />{' '}
+                  {tracks
+                    .reduce(
+                      (accumulator, track) =>
+                        accumulator + track.dailyPlaycount,
+                      0
+                    )
+                    .toLocaleString()}
+                </div>
               </div>
-            </div>
-            <div>
-              {isMobile ? (
-                <FaShareSquare
-                  id='screenshot-share-icon'
-                  className='screenshot-share-icon ms-2'
-                  size={20}
-                  onClick={handleScreenshot}
-                />
-              ) : (
-                <RiScreenshot2Fill
-                  id='screenshot-share-icon'
-                  className='screenshot-share-icon ms-2'
-                  size={25}
-                  onClick={handleScreenshot}
-                />
-              )}
+              <div>
+                {isMobile ? (
+                  <FaShareSquare
+                    id='screenshot-share-icon'
+                    className='screenshot-share-icon ms-2'
+                    size={20}
+                    onClick={handleScreenshot}
+                  />
+                ) : (
+                  <RiScreenshot2Fill
+                    id='screenshot-share-icon'
+                    className='screenshot-share-icon ms-2'
+                    size={25}
+                    onClick={handleScreenshot}
+                  />
+                )}
+              </div>
             </div>
           </div>
           {sortedTracks().map((track) => (

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ArtistCard from './ArtistCard';
-import ContentContainer from './ContentContainer';
 import { useSpotifyStats } from '../hooks/useSpotifyStats';
 import Spinner from './Spinner';
+import SpotifyStreamStats from './SpotifyStreamStats';
 
 const artistIds = ['6HvZYsbFfjnjFrWF950C9d', '3BNhPTiKBExlE45mYeC9YY'];
 
@@ -49,7 +49,7 @@ const Home = () => {
           />
         )}
       </div>
-      <ContentContainer
+      <SpotifyStreamStats
         displayMode={displayMode}
         setDisplayMode={setDisplayMode}
         tracks={tracks}

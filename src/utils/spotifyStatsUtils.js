@@ -82,3 +82,27 @@ export const processAlbums = (songAlbumStats) => {
     };
   });
 };
+
+export const sortTracks = (tracks, filterOption) => {
+  const sorted = [...tracks];
+  if (filterOption === 'Daily') {
+    sorted.sort((a, b) => b.dailyPlaycount - a.dailyPlaycount);
+  } else {
+    sorted.sort((a, b) => b.playcount - a.playcount);
+  }
+  return sorted;
+};
+
+export const sorteTracksByAlbum = (groupedTracksByAlbum, filterOption) => {
+  const sorted = [...groupedTracksByAlbum];
+  if (filterOption === 'Daily') {
+    sorted.forEach((album) => {
+      album.tracks.sort((a, b) => b.dailyPlaycount - a.dailyPlaycount);
+    });
+  } else {
+    sorted.forEach((album) => {
+      album.tracks.sort((a, b) => b.playcount - a.playcount);
+    });
+  }
+  return sorted;
+};

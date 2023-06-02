@@ -72,6 +72,18 @@ export const fetchTrackPlaylistsData = async (trackId) => {
   }
 };
 
+export const fetchArtistTrackAndReachData = async (artistId) => {
+  try {
+    const res = await axios.get(
+      `${API_BASE_URL}/spotify/artist/${artistId}/playlist/tracks-reach`
+    );
+    return res.data;
+  } catch (err) {
+    console.error('Error: Failed to fetch artist track and reach data', err);
+    throw err;
+  }
+};
+
 // TODO: Korean Charts (Melon, Genie, Bugs, FLO)
 // export const fetchMelonTop100 = async (date, hour) => {
 //   try {

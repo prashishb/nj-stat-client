@@ -1,6 +1,11 @@
 import React, { useCallback } from 'react';
 
-const DisplayModeToggle = ({ displayMode, setDisplayMode }) => {
+const DisplayModeToggle = ({
+  displayMode,
+  setDisplayMode,
+  hasMultipleAlbums,
+  hasMultipleTracks,
+}) => {
   const handleClick = useCallback(
     (mode) => {
       setDisplayMode(mode);
@@ -26,23 +31,27 @@ const DisplayModeToggle = ({ displayMode, setDisplayMode }) => {
         Songs
       </label>
 
-      <input
-        type='radio'
-        className='btn-check'
-        name='displayModeToggle'
-        id='albums'
-        autoComplete='off'
-        checked={displayMode === 'albums'}
-        onChange={() => handleClick('albums')}
-      />
-      <label
-        className='btn btn-outline-green-moon button-transition'
-        htmlFor='albums'
-      >
-        Albums
-      </label>
+      {hasMultipleAlbums && (
+        <>
+          <input
+            type='radio'
+            className='btn-check'
+            name='displayModeToggle'
+            id='albums'
+            autoComplete='off'
+            checked={displayMode === 'albums'}
+            onChange={() => handleClick('albums')}
+          />
+          <label
+            className='btn btn-outline-green-moon button-transition'
+            htmlFor='albums'
+          >
+            Albums
+          </label>
+        </>
+      )}
 
-      {/* <input
+      <input
         type='radio'
         className='btn-check'
         name='displayModeToggle'
@@ -56,7 +65,7 @@ const DisplayModeToggle = ({ displayMode, setDisplayMode }) => {
         htmlFor='playlists'
       >
         Playlists
-      </label> */}
+      </label>
     </div>
   );
 };

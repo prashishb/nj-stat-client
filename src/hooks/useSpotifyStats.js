@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import {
   fetchSongAlbumStats,
   fetchArtistStats,
+  fetchArtistTrackAndReachData,
 } from '../services/spotifyStatsService';
 import {
   getUpdatedAt,
@@ -13,6 +14,7 @@ import { getTimeUntilNextUpdate } from '../utils/helperUtils';
 export const useSpotifyStats = (artistId, setIsLoadingArtist) => {
   const [songAlbumStats, setSongAlbumStats] = useState([]);
   const [artistStats, setArtistStats] = useState({});
+  const [artistTracksReach, setArtistTracksReach] = useState([]);
   const [displayMode, setDisplayMode] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -24,8 +26,12 @@ export const useSpotifyStats = (artistId, setIsLoadingArtist) => {
         setIsLoadingArtist(true);
         const songAlbumData = await fetchSongAlbumStats(artistId);
         const artistData = await fetchArtistStats(artistId);
+        const artistTrackAndReachData = await fetchArtistTrackAndReachData(
+          artistId
+        );
         setSongAlbumStats(songAlbumData);
         setArtistStats(artistData);
+        setArtistTracksReach(artistTrackAndReachData);
         setIsLoadingArtist(false);
       } catch (err) {
         console.error('Error fetching data:', err);
@@ -38,10 +44,14 @@ export const useSpotifyStats = (artistId, setIsLoadingArtist) => {
   }, [artistId, setIsLoadingArtist]);
 
   useEffect(() => {
-    if (songAlbumStats.length && Object.keys(artistStats).length) {
+    if (
+      songAlbumStats.length &&
+      Object.keys(artistStats).length &&
+      artistTracksReach.length > 0
+    ) {
       setIsLoading(false);
     }
-  }, [songAlbumStats, artistStats]);
+  }, [songAlbumStats, artistStats, artistTracksReach]);
 
   const updatedAt = getUpdatedAt(songAlbumStats);
   const tracks = processTracks(songAlbumStats);
@@ -54,6 +64,7 @@ export const useSpotifyStats = (artistId, setIsLoadingArtist) => {
     artistStats,
     tracks,
     albums,
+    artistTracksReach,
     updatedAt,
   };
 };

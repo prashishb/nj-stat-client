@@ -17,6 +17,7 @@ const Home = () => {
     artistStats,
     tracks,
     albums,
+    artistTracksReach,
     updatedAt,
   } = useSpotifyStats(artistIds[currentIndex], setIsLoadingArtist);
 
@@ -54,6 +55,7 @@ const Home = () => {
         setDisplayMode={setDisplayMode}
         tracks={tracks}
         groupedTracksByAlbum={albums}
+        artistTracksReach={artistTracksReach}
         updatedAt={updatedAt}
       />
     </div>

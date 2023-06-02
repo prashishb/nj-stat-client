@@ -29,20 +29,23 @@ const Navbar = () => {
     navbar.classList.toggle('navbar-dark', theme === 'dark');
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((currentTheme) => (currentTheme === 'light' ? 'dark' : 'light'));
-    localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
-  };
-
   const toggleDropdown = () => {
     setDropdownOpen((currentDropdownOpen) => !currentDropdownOpen);
   };
 
   const closeNavbar = () => {
     const navbarToggler = document.querySelector('.navbar-toggler');
-    const navbarNav = document.querySelector('#navbarNav');
-    navbarToggler.classList.add('collapsed');
-    navbarNav.classList.remove('show');
+    if (navbarToggler.classList.contains('collapsed')) {
+      return;
+    } else {
+      navbarToggler.click();
+    }
+  };
+
+  const toggleTheme = () => {
+    setTheme((currentTheme) => (currentTheme === 'light' ? 'dark' : 'light'));
+    localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
+    closeNavbar();
   };
 
   return (

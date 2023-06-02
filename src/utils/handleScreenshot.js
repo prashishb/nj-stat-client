@@ -8,13 +8,16 @@ const handleScreenshot = (
   event,
   albumContainerRefs,
   trackContainerRef,
+  trackReachContainerRef,
   updatedAt
 ) => {
   const index = event.currentTarget.getAttribute('data-album-index');
   const ref =
     index !== null
       ? albumContainerRefs.current[index]
-      : trackContainerRef.current;
+      : trackContainerRef.current
+      ? trackContainerRef.current
+      : trackReachContainerRef.current;
   if (!ref) return;
   html2canvas(ref, {
     allowTaint: false,

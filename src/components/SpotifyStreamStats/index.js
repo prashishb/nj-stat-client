@@ -7,22 +7,31 @@ import DisplayModeToggle from '../DisplayModeToggle';
 import FilterOptions from './FilterOptions';
 import TrackListing from './TrackListing';
 import AlbumListing from './AlbumListing';
+import TrackReachListing from './TrackReachListing';
 
 const Index = ({
   displayMode,
   setDisplayMode,
   tracks,
-  updatedAt,
   groupedTracksByAlbum,
+  artistTracksReach,
+  updatedAt,
 }) => {
   const [filterOption, setFilterOption] = useState('Daily');
 
   // Initialize useRef for track and album containers
   const trackContainerRef = useRef(null);
   const albumContainerRefs = useRef([]);
+  const trackReachContainerRef = useRef(null);
 
   const handleScreenshotEvent = (event) => {
-    handleScreenshot(event, albumContainerRefs, trackContainerRef, updatedAt);
+    handleScreenshot(
+      event,
+      albumContainerRefs,
+      trackContainerRef,
+      trackReachContainerRef,
+      updatedAt
+    );
   };
 
   const sortedTracks = useMemo(
@@ -53,24 +62,22 @@ const Index = ({
     <div className='content-container'>
       <div className='container'>
         <div className='row mb-2'>
-          {hasMultipleTracks && (
-            <>
-              {hasMultipleAlbums && (
-                <div className='col d-flex justify-content-start p-0'>
-                  <DisplayModeToggle
-                    displayMode={displayMode}
-                    setDisplayMode={setDisplayMode}
-                  />
-                </div>
-              )}
-              <div className='col d-flex justify-content-end p-0'>
-                <FilterOptions
-                  filterOption={filterOption}
-                  setFilterOption={setFilterOption}
-                />
-              </div>
-            </>
-          )}
+          <div className='col-12 col-md-6 d-flex justify-content-start p-0'>
+            <DisplayModeToggle
+              displayMode={displayMode}
+              setDisplayMode={setDisplayMode}
+              hasMultipleAlbums={hasMultipleAlbums}
+              hasMultipleTracks={hasMultipleTracks}
+            />
+          </div>
+          <div className='col-12 col-md-6 d-flex justify-content-end p-0'>
+            <FilterOptions
+              filterOption={filterOption}
+              setFilterOption={setFilterOption}
+              displayMode={displayMode}
+              hasMultipleTracks={hasMultipleTracks}
+            />
+          </div>
         </div>
       </div>
       {displayMode === 'all' ? (
@@ -86,7 +93,11 @@ const Index = ({
           albumContainerRefs={albumContainerRefs}
         />
       ) : (
-        <div className='container text-center'>WORK IN PROGRSS</div>
+        <TrackReachListing
+          tracks={artistTracksReach}
+          handleScreenshot={handleScreenshotEvent}
+          trackReachContainerRef={trackReachContainerRef}
+        />
       )}
       <div className='col d-flex justify-content-center p-0 align-items-center mobile-hidden'>
         {updatedAt && (

@@ -75,7 +75,7 @@ const ArtistCard = ({
 
   return (
     <div
-      className='card artist-card'
+      className='card artist-card bg-light-subtle bg-opacity-10 border-0'
       style={{ opacity: isLoadingArtist ? 0.5 : 1 }}
     >
       <div className='artist-card-container'>

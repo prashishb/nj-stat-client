@@ -19,7 +19,7 @@ const handleScreenshot = (
   html2canvas(ref, {
     allowTaint: false,
     useCORS: true,
-    height: ref.offsetHeight - 7,
+    height: ref.offsetHeight - 2.5,
     padding: 2,
     ignoreElements: (element) => element.id === 'screenshot-share-icon',
   }).then((canvas) => {

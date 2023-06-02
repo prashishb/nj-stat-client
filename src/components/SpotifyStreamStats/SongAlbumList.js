@@ -19,7 +19,7 @@ const ChangeIcon = ({ change }) => {
 const SongAlbumCard = ({ track }) => {
   return (
     <div className='card bg-light-subtle bg-opacity-10 mb-2 border'>
-      <div className='row no-gutters align-items-center m-0'>
+      <div className='row no-gutters align-items-center m-0 track-card'>
         <div className='col-2 col-md-1 p-2'>
           <img
             src={track.imageUrl}

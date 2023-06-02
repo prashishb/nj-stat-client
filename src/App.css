@@ -31,9 +31,14 @@ body.dark {
 }
 
 @media (min-width: 768px) {
-  .album-container .card:hover,
-  .track-container .card:hover {
+  .dark .album-container .card:hover,
+  .dark .track-container .card:hover {
     filter: brightness(1.1);
+  }
+
+  .light .album-container .card:hover,
+  .light .track-container .card:hover {
+    filter: brightness(0.9);
   }
 }
 
@@ -843,4 +848,9 @@ body.dark {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.album-container > div:nth-child(2) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }

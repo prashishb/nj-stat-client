@@ -46,7 +46,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-light container navbar-container mt-0 pt-0'>
+    <nav className='navbar navbar-expand-lg navbar-light container navbar-container mt-0'>
       <div className='container-fluid'>
         <Link className='navbar-brand' to='/'>
           <Logo

@@ -24,6 +24,9 @@ const Navbar = () => {
     document.documentElement.setAttribute('data-bs-theme', theme);
     document.documentElement.classList.toggle('light', theme === 'light');
     document.documentElement.classList.toggle('dark', theme === 'dark');
+    const navbar = document.querySelector('.navbar');
+    navbar.classList.toggle('navbar-light', theme === 'light');
+    navbar.classList.toggle('navbar-dark', theme === 'dark');
   }, [theme]);
 
   const toggleTheme = () => {
@@ -43,7 +46,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-light container navbar-container'>
+    <nav className='navbar navbar-expand-lg navbar-light container navbar-container mt-0 pt-0'>
       <div className='container-fluid'>
         <Link className='navbar-brand' to='/'>
           <Logo

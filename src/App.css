@@ -373,20 +373,32 @@ body.dark {
   margin: 0 1rem;
 }
 
+.navbar-light {
+  background-color: #fff !important;
+}
+
+.navbar-dark {
+  background-color: #212529 !important;
+}
+
 .navbar-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
   position: sticky !important;
-  background-color: #212529;
   top: 0;
   z-index: 1;
+  /* slight box-shadow at the bottom only */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
 
-  @media (min-width: 768px) {
+@media (min-width: 768px) {
+  .navbar-container {
     padding: 1rem 2rem;
     position: relative !important;
     background-color: transparent !important;
+    box-shadow: none;
   }
 }
 

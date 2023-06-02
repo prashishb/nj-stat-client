@@ -45,7 +45,9 @@ const Navbar = () => {
   const toggleTheme = () => {
     setTheme((currentTheme) => (currentTheme === 'light' ? 'dark' : 'light'));
     localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
-    closeNavbar();
+    if (window.innerWidth < 991) {
+      closeNavbar();
+    }
   };
 
   return (
@@ -86,10 +88,10 @@ const Navbar = () => {
                     <FaSpotify size={20} />
                   </span>
                   <span className='spotify-label'>Spotify</span>
-                  <span className='dropdown-icon d-none d-md-inline'>
+                  <span className='dropdown-icon d-none d-lg-inline'>
                     <FaCaretDown />
                   </span>
-                  <span className='dropdown-icon d-inline-block d-md-none ms-auto'>
+                  <span className='dropdown-icon d-inline-block d-lg-none ms-auto'>
                     {dropdownOpen ? <FaCaretUp /> : <FaCaretDown />}
                   </span>
                 </NavLink>
@@ -145,7 +147,7 @@ const Navbar = () => {
                   onClick={toggleTheme}
                 >
                   <ToggleButton theme={theme} toggleTheme={toggleTheme} />
-                  <span className='theme-label d-inline-block d-md-none'>
+                  <span className='theme-label d-inline-block d-lg-none'>
                     {theme === 'light' ? 'Use Dark Mode' : 'Use Light Mode'}
                   </span>
                 </button>

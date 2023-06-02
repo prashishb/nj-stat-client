@@ -36,7 +36,7 @@ const Home = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className='body-container mt-2 p-2'>
+    <div className='body-container p-2'>
       <div className='container mb-2 artist-container pb-0 border bg-light-subtle bg-opacity-10'>
         {Object.keys(artistStats).length > 0 && (
           <ArtistCard

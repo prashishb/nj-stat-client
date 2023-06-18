@@ -14,11 +14,13 @@ export const getUpdatedAt = (songAlbumStats) => {
 
 export const processTracks = (songAlbumStats) => {
   const tracks = [];
+
+  const uniqueTracks = {};
+
   songAlbumStats.forEach((album) => {
     album.tracks.forEach((track) => {
-      const index = tracks.findIndex((t) => t.isrc === track.isrc);
-      if (index === -1) {
-        tracks.push({
+      if (!uniqueTracks[track.isrc]) {
+        uniqueTracks[track.isrc] = {
           uri: track.uri,
           name: track.name,
           playcount: track.playcount,
@@ -26,26 +28,25 @@ export const processTracks = (songAlbumStats) => {
           albumUri: `spotify:album:${album.albumId}`,
           dailyPlaycount: track.dailyPlaycount,
           isrc: track.isrc,
-        });
-      } else {
-        const otherTrack = tracks[index];
-        if (
-          album.tracks.length === 1 ||
-          otherTrack.albumUri === `spotify:album:${album.albumId}`
-        ) {
-          tracks.splice(index, 1, {
-            uri: track.uri,
-            name: track.name,
-            playcount: track.playcount,
-            imageUrl: track.imageUrl,
-            albumUri: `spotify:album:${album.albumId}`,
-            dailyPlaycount: track.dailyPlaycount,
-            isrc: track.isrc,
-          });
-        }
+        };
+      } else if (track.albumType === 'single') {
+        uniqueTracks[track.isrc] = {
+          uri: track.uri,
+          name: track.name,
+          playcount: track.playcount,
+          imageUrl: track.imageUrl,
+          albumUri: `spotify:album:${album.albumId}`,
+          dailyPlaycount: track.dailyPlaycount,
+          isrc: track.isrc,
+        };
       }
     });
   });
+
+  Object.keys(uniqueTracks).forEach((isrc) => {
+    tracks.push(uniqueTracks[isrc]);
+  });
+
   return tracks.sort((a, b) => b.dailyPlaycount - a.dailyPlaycount);
 };
 

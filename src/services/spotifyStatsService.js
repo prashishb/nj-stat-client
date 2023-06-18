@@ -28,7 +28,7 @@ export const fetchArtistStats = async (artistId) => {
 
 export const fetchGlobalChart = async () => {
   try {
-    const res = await axios.get(`${API_BASE_URL}/spotify/charts/global`);
+    const res = await axios.get(`${API_BASE_URL}/spotify/charts/global/latest`);
     return res.data;
   } catch (err) {
     console.error('Error: Failed to fetch global chart', err);

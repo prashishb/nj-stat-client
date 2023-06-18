@@ -43,9 +43,7 @@ const Navbar = () => {
   const toggleTheme = () => {
     setTheme((currentTheme) => (currentTheme === 'light' ? 'dark' : 'light'));
     localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
-    if (window.innerWidth < 991) {
-      closeNavbar();
-    }
+    closeNavbar();
   };
 
   return (

@@ -35,9 +35,7 @@ const Navbar = () => {
 
   const closeNavbar = () => {
     const navbarToggler = document.querySelector('.navbar-toggler');
-    if (navbarToggler.classList.contains('collapsed')) {
-      return;
-    } else {
+    if (window.innerWidth < 991) {
       navbarToggler.click();
     }
   };

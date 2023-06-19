@@ -41,7 +41,7 @@ const SongAlbumCard = forwardRef(
                 </div>
               </div>
             )}
-            <div>
+            <div className='d-flex align-items-center'>
               {isMobile ? (
                 <FaShareSquare
                   id='screenshot-share-icon'

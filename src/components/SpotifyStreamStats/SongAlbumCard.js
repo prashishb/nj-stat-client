@@ -11,10 +11,10 @@ const SongAlbumCard = forwardRef(
     return (
       <div
         id={id}
-        className='container album-container p-0 bg-body rounded-0'
+        className='container album-container p-0 bg-body border rounded-top-3 px-2'
         ref={ref}
       >
-        <div className='border border-bottom-0 rounded-top-3 px-2 pt-2'>
+        <div className='px-2 pt-2'>
           <h2 className='fs-5 mb-1'>{title}</h2>
           <div className='d-flex gap-2 pb-1 justify-content-between'>
             {tracks.length > 1 && (

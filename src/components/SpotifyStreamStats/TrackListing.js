@@ -5,7 +5,7 @@ const TrackListing = ({ tracks, handleScreenshot, trackContainerRef }) => {
   return (
     <SongAlbumCard
       id='tracks'
-      title='All Discography'
+      title='Discography'
       tracks={tracks}
       handleScreenshot={handleScreenshot}
       ref={trackContainerRef}

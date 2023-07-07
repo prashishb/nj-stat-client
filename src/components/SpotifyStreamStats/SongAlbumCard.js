@@ -27,18 +27,20 @@ const SongAlbumCard = forwardRef(
                     )
                     .toLocaleString()}
                 </span>
-                <div className='change-increase-totals d-inline-block ms-1'>
-                  <FontAwesomeIcon icon={faArrowUp} />{' '}
-                  <span className='fs-7'>
-                    {tracks
-                      .reduce(
-                        (accumulator, track) =>
-                          accumulator + track.dailyPlaycount,
-                        0
-                      )
-                      .toLocaleString()}
-                  </span>
-                </div>
+                {tracks.some((track) => track.dailyPlaycount !== 0) && (
+                  <div className='change-increase-totals d-inline-block ms-1'>
+                    <FontAwesomeIcon icon={faArrowUp} />{' '}
+                    <span className='fs-7'>
+                      {tracks
+                        .reduce(
+                          (accumulator, track) =>
+                            accumulator + track.dailyPlaycount,
+                          0
+                        )
+                        .toLocaleString()}
+                    </span>
+                  </div>
+                )}
               </div>
             )}
             <div className='d-flex align-items-center'>

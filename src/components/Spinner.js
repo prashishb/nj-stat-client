@@ -5,9 +5,9 @@ const Spinner = () => {
   return (
     <div className='spinner-wrapper'>
       <SpinnerCircularFixed
-        size={150}
+        size={50}
         thickness={100}
-        speed={100}
+        speed={75}
         color='rgb(86,171,47)'
         secondaryColor='#adb5bd'
         margin='0 auto'

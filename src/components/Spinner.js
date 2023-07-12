@@ -6,7 +6,7 @@ const Spinner = () => {
     <div className='spinner-wrapper'>
       <SpinnerCircularFixed
         size={50}
-        thickness={200}
+        thickness={150}
         speed={75}
         color='rgb(86,171,47)'
         secondaryColor='#adb5bd'

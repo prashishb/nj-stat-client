@@ -55,6 +55,7 @@ export const processAlbums = (songAlbumStats) => {
     .filter((album) => !album.name.toLowerCase().includes('soundtrack'))
     .map((album) => {
       return {
+        albumId: album.albumId,
         name: album.name,
         tracks: album.tracks.map((track) => {
           return {
@@ -64,6 +65,7 @@ export const processAlbums = (songAlbumStats) => {
             imageUrl: track.imageUrl,
             albumUri: `spotify.album:${album.albumId}`,
             dailyPlaycount: track.dailyPlaycount,
+            isrc: track.isrc,
           };
         }),
       };
@@ -73,12 +75,56 @@ export const processAlbums = (songAlbumStats) => {
     (albumData) => albumData.tracks.length > 1
   );
 
-  return filteredGroupedTracksByAlbum.map((albumData) => {
+  const uniqueTracks = {};
+
+  filteredGroupedTracksByAlbum.forEach((album) => {
+    album.tracks.forEach((track) => {
+      if (!uniqueTracks[track.isrc]) {
+        uniqueTracks[track.isrc] = {
+          uri: track.uri,
+          name: track.name,
+          playcount: track.playcount,
+          imageUrl: track.imageUrl,
+          albumUri: track.albumUri,
+          dailyPlaycount: track.dailyPlaycount,
+          isrc: track.isrc,
+          albumName: album.name,
+        };
+      } else {
+        // Maintain the original track's playcount and dailyPlaycount
+        uniqueTracks[track.isrc].playcount = track.playcount;
+        uniqueTracks[track.isrc].dailyPlaycount = track.dailyPlaycount;
+      }
+    });
+  });
+
+  const uniqueAlbums = {};
+
+  Object.keys(uniqueTracks).forEach((isrc) => {
+    const albumUri = uniqueTracks[isrc].albumUri;
+    if (!uniqueAlbums[albumUri]) {
+      uniqueAlbums[albumUri] = {
+        albumName: uniqueTracks[isrc].albumName,
+        tracks: [uniqueTracks[isrc]],
+      };
+    } else {
+      uniqueAlbums[albumUri].tracks.push(uniqueTracks[isrc]);
+    }
+  });
+
+  const filteredAlbums = Object.keys(uniqueAlbums).map((albumUri) => {
+    return {
+      albumName: uniqueAlbums[albumUri].albumName,
+      tracks: uniqueAlbums[albumUri].tracks,
+    };
+  });
+
+  return filteredAlbums.map((albumData) => {
     const sortedTracks = albumData.tracks.sort(
       (a, b) => b.dailyPlaycount - a.dailyPlaycount
     );
     return {
-      albumName: albumData.name,
+      albumName: albumData.albumName,
       tracks: sortedTracks,
     };
   });
@@ -94,7 +140,7 @@ export const sortTracks = (tracks, filterOption) => {
   return sorted;
 };
 
-export const sorteTracksByAlbum = (groupedTracksByAlbum, filterOption) => {
+export const sortTracksByAlbum = (groupedTracksByAlbum, filterOption) => {
   const sorted = [...groupedTracksByAlbum];
   if (filterOption === 'Daily') {
     sorted.forEach((album) => {

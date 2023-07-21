@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import VideoCard from './VideoCard';
 import { useYouTubeStats } from '../hooks/useYouTubeStats';
 import { formatDate } from '../utils/valueFormatter';
@@ -32,6 +32,7 @@ const YouTube = () => {
     return sorted;
   };
 
+  // filter videos by display mode
   const getVideosByDisplayMode = () => {
     const sorted = sortedVideos();
     switch (displayMode) {
@@ -75,9 +76,8 @@ const YouTube = () => {
   return (
     <div className='container mt-2 mb-2'>
       <h1 className='text-center fs-4 mb-0'>
-        Updated: {formatDate(updatedAt)}
+        Last Updated: {formatDate(updatedAt)}
       </h1>
-      {/* Make a small note to let users know that the videos are updated every hour on the top */}
       <span className='d-flex justify-content-center align-items-center text-center fs-6 mb-2 fst-italic'>
         Currently tracking {videos.length} videos. Updated every hour.
       </span>

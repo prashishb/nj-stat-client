@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { sortTracks, sorteTracksByAlbum } from '../../utils/spotifyStatsUtils';
+import { sortTracks, sortTracksByAlbum } from '../../utils/spotifyStatsUtils';
 import { formatDate } from '../../utils/valueFormatter';
 import handleScreenshot from '../../utils/handleScreenshot';
 
@@ -40,7 +40,7 @@ const Index = ({
   );
 
   const sortedAlbums = useMemo(
-    () => sorteTracksByAlbum(groupedTracksByAlbum, filterOption),
+    () => sortTracksByAlbum(groupedTracksByAlbum, filterOption),
     [groupedTracksByAlbum, filterOption]
   );
 

@@ -37,7 +37,7 @@ const ArtistCard = ({
   const changeInMonthlyListeners = changes.monthlyListeners;
   const changeInWorldRank = changes.worldRank;
   const changeInFollowers = changes.followers;
-  const defualtImg = 'https://i.ibb.co/1ZmqTMG/1659632359-untitled-1-013.jpg';
+  const defualtImg = 'https://i.imgur.com/vKaKiOU.jpg';
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [chartData, setChartData] = useState([]);
@@ -101,7 +101,6 @@ const ArtistCard = ({
           </div>
           <h1 className='artist-name'>{name}</h1>
           <span className='d-flex flex-row-reverse timestamp'>
-            {/* if timestamp is null or undefined show current date else show timedate */}
             Updated: {formatDate(timestamp)}
           </span>
           <button

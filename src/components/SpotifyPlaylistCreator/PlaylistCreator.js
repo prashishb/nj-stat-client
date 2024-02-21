@@ -12,12 +12,17 @@ const PlaylistCreator = () => {
     playlist,
     addToPlaylist,
     addAlbumToPlaylist,
+    addPlaylistToPlaylist,
+    addRecommendsToPlaylist,
+    neededTracks,
+    neededArtists,
     removeFromPlaylist,
     updatePlaylistItemCount,
     generatePlaylist,
     clearAll,
     setNotification,
     notification,
+    warningMessage,
     // streamingFocus,
     // setStreamingFocus,
   } = usePlaylist(spotifyApi);
@@ -50,6 +55,8 @@ const PlaylistCreator = () => {
       addToPlaylist(item);
     } else if (item.type === 'album') {
       addAlbumToPlaylist(item.id);
+    } else if (item.type === 'playlist') {
+      addPlaylistToPlaylist(item.id);
     } else {
       console.error('Unsupported item type:', item.type);
     }
@@ -66,10 +73,6 @@ const PlaylistCreator = () => {
       setDropdownVisible(false);
     }
   };
-
-  // const handleStreamingFocusToggle = () => {
-  //   setStreamingFocus((prevState) => !prevState);
-  // };
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -101,6 +104,24 @@ const PlaylistCreator = () => {
             fontSize: '16px',
           }}
         />
+        {/* Render Add Filler Tracks button conditionally based on warningMessage */}
+        {warningMessage && (
+          <button
+            type='button'
+            className='btn btn-warning'
+            style={{
+              position: 'absolute',
+              right: '10px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: '1000',
+              // Additional styling here...
+            }}
+            onClick={() => addRecommendsToPlaylist(neededTracks, neededArtists)}
+          >
+            Add Filler Tracks
+          </button>
+        )}
         {dropdownVisible && searchResults && searchResults.length > 0 ? (
           <ul
             className='dropdown-menu show position-absolute'
@@ -163,6 +184,12 @@ const PlaylistCreator = () => {
               </a>
             </div>
           )}
+        </div>
+      )}
+      {/* Warning Message Display */}
+      {warningMessage && (
+        <div className='alert alert-warning mt-3' role='alert'>
+          {warningMessage}
         </div>
       )}
       {playlist && playlist.length > 0 && (

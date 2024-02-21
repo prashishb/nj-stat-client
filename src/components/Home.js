@@ -4,11 +4,11 @@ import { useSpotifyStats } from '../hooks/useSpotifyStats';
 import Spinner from './Spinner';
 import SpotifyStreamStats from './SpotifyStreamStats';
 
-const artistIds = ['6HvZYsbFfjnjFrWF950C9d', '3BNhPTiKBExlE45mYeC9YY'];
-
-const Home = () => {
+const Home = ({ spotifyArtistIds }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoadingArtist, setIsLoadingArtist] = useState(false);
+
+  const artistIds = spotifyArtistIds || [];
 
   const {
     isLoading,

@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import VideoCard from './VideoCard';
 import { useYouTubeStats } from '../hooks/useYouTubeStats';
 import { formatDate } from '../utils/valueFormatter';
@@ -79,7 +79,7 @@ const YouTube = () => {
         Last Updated: {formatDate(updatedAt)}
       </h1>
       <span className='d-flex justify-content-center align-items-center text-center fs-6 mb-2 fst-italic'>
-        Currently tracking {videos.length} videos. Updated every hour.
+        Tracking {videos.length} videos. Updated every hour.
       </span>
       <div className='row mb-2 mx-2'>
         <div className='col d-flex justify-content-start p-0 mb-2'>

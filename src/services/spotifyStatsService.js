@@ -14,6 +14,16 @@ export const fetchSongAlbumStats = async (artistId) => {
   }
 };
 
+export const fetchArtistIds = async () => {
+  try {
+    const res = await axios.get(`${API_BASE_URL}/spotify/artist/ids`);
+    return res.data;
+  } catch (err) {
+    console.error('Error: Failed to fetch artist ids', err);
+    throw err;
+  }
+};
+
 export const fetchArtistStats = async (artistId) => {
   try {
     const res = await axios.get(

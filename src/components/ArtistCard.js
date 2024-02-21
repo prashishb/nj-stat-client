@@ -37,7 +37,7 @@ const ArtistCard = ({
   const changeInMonthlyListeners = changes.monthlyListeners;
   const changeInWorldRank = changes.worldRank;
   const changeInFollowers = changes.followers;
-  const defualtImg = 'https://i.imgur.com/vKaKiOU.jpg';
+  // const defualtImg = 'https://i.imgur.com/vKaKiOU.jpg';
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [chartData, setChartData] = useState([]);
@@ -80,11 +80,16 @@ const ArtistCard = ({
     >
       <div className='artist-card-container'>
         <div className='header-image-container'>
-          <img
-            src={headerImageUrl ? headerImageUrl : defualtImg}
-            className='header-image'
-            alt={name}
-          />
+          {headerImageUrl ? (
+            <img src={headerImageUrl} className='header-image' alt={name} />
+          ) : (
+            <div
+              className='header-image'
+              style={{
+                backgroundColor: `hsl(${Math.random() * 360}, 100%, 90%)`,
+              }}
+            ></div>
+          )}
           <div className='overlay'>
             {isLoadingArtist && (
               <div className='loader'>
@@ -136,7 +141,7 @@ const ArtistCard = ({
                 Monthly Listeners
               </p>
               <h6 className='open-chart'>
-                {monthlyListeners.toLocaleString()}
+                {monthlyListeners ? monthlyListeners.toLocaleString() : 'N/A'}
               </h6>
               <div className='change'>
                 <ChangeIcon change={changeInMonthlyListeners} />
@@ -159,7 +164,7 @@ const ArtistCard = ({
               <p className='stat-label text-truncate text-muted mb-2 mt-1'>
                 Global Rank
               </p>
-              <h6>{worldRank === 0 ? 'N/A' : worldRank.toLocaleString()}</h6>
+              <h6>{worldRank ? worldRank.toLocaleString() : 'N/A'}</h6>
               <div className='change'>
                 <ChangeIcon change={changeInWorldRank} />
                 {changeInWorldRank !== 0 && (

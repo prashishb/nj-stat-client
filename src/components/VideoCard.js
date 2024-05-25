@@ -18,11 +18,7 @@ const VideoCard = ({ video, hourlyTrending }) => {
   const titleWithoutNewJeans = title.replace('NewJeans (뉴진스)', '');
 
   return (
-    <div
-      className='card video-card border-dark-subtle'
-      ref={cardRef}
-      style={{ backgroundImage: `url(${image})` }}
-    >
+    <div className='card video-card border-dark-subtle' ref={cardRef}>
       <div className='backdrop-filter-overlay'></div>
       <div className='card-body video-card-body p-2'>
         <div className='d-flex align-items-start mb-1'>

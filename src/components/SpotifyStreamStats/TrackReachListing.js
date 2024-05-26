@@ -9,7 +9,7 @@ const TrackReachListing = ({
   return (
     <TrachReachCard
       id='tracks-reach'
-      title='Playlist Reach by Track'
+      title='Playlist Reach'
       tracks={tracks}
       handleScreenshot={handleScreenshot}
       ref={trackReachContainerRef}

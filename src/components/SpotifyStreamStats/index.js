@@ -19,7 +19,6 @@ const Index = ({
 }) => {
   const [filterOption, setFilterOption] = useState('Daily');
 
-  // Initialize useRef for track and album containers
   const trackContainerRef = useRef(null);
   const albumContainerRefs = useRef([]);
   const trackReachContainerRef = useRef(null);
@@ -44,7 +43,6 @@ const Index = ({
     [groupedTracksByAlbum, filterOption]
   );
 
-  // count the albums with more than 1 track
   const albumsWithMoreThanOneTrack = useMemo(
     () => groupedTracksByAlbum.filter((album) => album.tracks.length > 1),
     [groupedTracksByAlbum]
@@ -91,6 +89,7 @@ const Index = ({
           albums={sortedAlbums}
           handleScreenshot={handleScreenshotEvent}
           albumContainerRefs={albumContainerRefs}
+          filterOption={filterOption}
         />
       ) : (
         <TrackReachListing

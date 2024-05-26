@@ -12,12 +12,33 @@ const TrackReachCard = forwardRef(
         className='container album-container p-0 bg-body border rounded-top-3 px-2'
         ref={ref}
       >
-        <div className='pt-2'>
-          <h2 className='fs-5 mb-1'>{title}</h2>
-          <div className='d-flex gap-2 pb-1 justify-content-between'>
+        <div className='screenshot-icon-container'>
+          {isMobile ? (
+            <FaShareSquare
+              id='screenshot-share-icon'
+              className='screenshot-share-icon ms-2'
+              size={20}
+              data-album-index={albumIndex}
+              onClick={handleScreenshot}
+            />
+          ) : (
+            <RiScreenshot2Fill
+              id='screenshot-share-icon'
+              className='screenshot-share-icon ms-2'
+              size={25}
+              data-album-index={albumIndex}
+              onClick={handleScreenshot}
+            />
+          )}
+        </div>
+        <div className='pt-2 row no-gutters d-flex mx-0 my-2'>
+          <div className='col-8 col-md-8 p-0'>
+            <h2 className='fs-5 mb-1 fw-bold'>{title}</h2>
+          </div>
+          <div className='col-4 col-md-4'>
             {tracks.length > 1 && (
-              <div>
-                <span className='text-muted total-album-playcount fs-7'>
+              <div className='d-flex flex-column text-end'>
+                <span className='text-muted total-album-playcount fs-7 fw-bold'>
                   {tracks
                     .reduce(
                       (accumulator, track) => accumulator + track.track_reach,
@@ -27,25 +48,6 @@ const TrackReachCard = forwardRef(
                 </span>
               </div>
             )}
-            <div className='d-flex align-items-center'>
-              {isMobile ? (
-                <FaShareSquare
-                  id='screenshot-share-icon'
-                  className='screenshot-share-icon ms-2'
-                  size={20}
-                  data-album-index={albumIndex}
-                  onClick={handleScreenshot}
-                />
-              ) : (
-                <RiScreenshot2Fill
-                  id='screenshot-share-icon'
-                  className='screenshot-share-icon ms-2'
-                  size={25}
-                  data-album-index={albumIndex}
-                  onClick={handleScreenshot}
-                />
-              )}
-            </div>
           </div>
         </div>
         {tracks.map((track) => (

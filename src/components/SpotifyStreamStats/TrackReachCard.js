@@ -6,6 +6,8 @@ import TrackReachList from './TrackReachList';
 
 const TrackReachCard = forwardRef(
   ({ id, title, tracks, handleScreenshot, albumIndex }, ref) => {
+    // filter out tracks with 0 reach
+    tracks = tracks.filter((track) => track.track_reach > 0);
     return (
       <div
         id={id}

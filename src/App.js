@@ -25,8 +25,6 @@ function App() {
     fetchData();
   }, []);
 
-  console.log('SpotifyArtistIds:', SpotifyArtistIds);
-
   return (
     <div>
       <Navbar />

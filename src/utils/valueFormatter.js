@@ -1,11 +1,10 @@
 // format date to users local format
 export const formatDate = (date) => {
-  const isoDate = new Date(date).toISOString();
-  const time = new Date(date).toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
+  const dateObj = new Date(date);
+  return dateObj.toLocaleString(undefined, {
+    dateStyle: 'short',
+    timeStyle: 'short',
   });
-  return `${isoDate.slice(0, 10)} ${time}`;
 };
 
 export const formatDateNew = (date) => {

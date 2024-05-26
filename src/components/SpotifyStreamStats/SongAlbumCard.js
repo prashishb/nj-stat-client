@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { RiScreenshot2Fill } from 'react-icons/ri';
 import { FaShareSquare } from 'react-icons/fa';
 import SongAlbumList from './SongAlbumList';
@@ -29,7 +29,7 @@ const SongAlbumCard = forwardRef(
                 </span>
                 {tracks.some((track) => track.dailyPlaycount !== 0) && (
                   <div className='change-increase-totals d-inline-block ms-1'>
-                    <FontAwesomeIcon icon={faArrowUp} />{' '}
+                    <FontAwesomeIcon icon={faPlus} />{' '}
                     <span className='fs-7'>
                       {tracks
                         .reduce(

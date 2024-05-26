@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { formatDate } from '../utils/valueFormatter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faArrowUp,
-  faArrowDown,
   faMinus,
+  faPlus,
   faAngleRight,
   faAngleLeft,
 } from '@fortawesome/free-solid-svg-icons';
@@ -15,9 +14,9 @@ import { SpinnerCircularFixed } from 'spinners-react';
 
 const ChangeIcon = ({ change }) => {
   if (change > 0) {
-    return <FontAwesomeIcon icon={faArrowUp} />;
+    return <FontAwesomeIcon icon={faPlus} />;
   } else if (change < 0) {
-    return <FontAwesomeIcon icon={faArrowDown} />;
+    return <FontAwesomeIcon icon={faMinus} className='fa-minus-decrease' />;
   } else {
     return <FontAwesomeIcon icon={faMinus} className='text-body-tertiary' />;
   }

@@ -1,16 +1,12 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faArrowUp,
-  faArrowDown,
-  faMinus,
-} from '@fortawesome/free-solid-svg-icons';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const ChangeIcon = ({ change }) => {
   if (change > 0) {
-    return <FontAwesomeIcon icon={faArrowUp} />;
+    return <FontAwesomeIcon icon={faPlus} />;
   } else if (change < 0) {
-    return <FontAwesomeIcon icon={faArrowDown} />;
+    return <FontAwesomeIcon icon={faMinus} />;
   } else {
     return <FontAwesomeIcon icon={faMinus} className='text-body-tertiary' />;
   }

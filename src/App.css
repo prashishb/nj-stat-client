@@ -226,6 +226,14 @@ body.dark {
   color: #56ab2f;
 }
 
+.fa-plus {
+  color: #56ab2f;
+}
+
+.fa-minus-decrease {
+  color: red;
+}
+
 .fa-arrow-down {
   color: red;
 }

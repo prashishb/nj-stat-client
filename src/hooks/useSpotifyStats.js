@@ -21,6 +21,8 @@ export const useSpotifyStats = (artistId, setIsLoadingArtist) => {
   const INTERVAL = useRef(getTimeUntilNextUpdate());
 
   useEffect(() => {
+    if (!artistId) return;
+
     const fetchData = async () => {
       try {
         setIsLoadingArtist(true);
@@ -38,6 +40,7 @@ export const useSpotifyStats = (artistId, setIsLoadingArtist) => {
         setIsLoadingArtist(false);
       }
     };
+
     fetchData();
     const interval = setInterval(fetchData, INTERVAL.current);
     return () => clearInterval(interval);

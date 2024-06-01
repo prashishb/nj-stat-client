@@ -28,7 +28,7 @@ const DisplayModeToggle = ({
         className='btn btn-outline-green-moon button-transition'
         htmlFor='allSongs'
       >
-        Songs
+        All
       </label>
 
       {hasMultipleAlbums && (

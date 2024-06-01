@@ -1,10 +1,22 @@
-// format date to users local format
-export const formatDate = (date) => {
-  const dateObj = new Date(date);
-  return dateObj.toLocaleString(undefined, {
-    dateStyle: 'short',
-    timeStyle: 'short',
+// format date
+export const formatDate = (timestamp) => {
+  const date = new Date(timestamp);
+
+  // Format the date according to user's locale
+  const formattedDate = date.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   });
+
+  // Format the time in 24-hour format
+  const formattedTime = date.toLocaleTimeString(undefined, {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
+
+  return `${formattedDate} ${formattedTime}`;
 };
 
 export const formatDateNew = (date) => {

@@ -11,12 +11,14 @@ import {
 } from '../utils/spotifyStatsUtils';
 import { getTimeUntilNextUpdate } from '../utils/helperUtils';
 
-export const useSpotifyStats = (artistId, setIsLoadingArtist) => {
-  const [songAlbumStats, setSongAlbumStats] = useState([]);
-  const [artistStats, setArtistStats] = useState({});
-  const [artistTracksReach, setArtistTracksReach] = useState([]);
-  const [displayMode, setDisplayMode] = useState('all');
-  const [isLoading, setIsLoading] = useState(true);
+export const useSpotifyStats = (artistId) => {
+  const [data, setData] = useState({
+    songAlbumStats: [],
+    artistStats: {},
+    artistTracksReach: [],
+    isLoading: true,
+    displayMode: 'all',
+  });
 
   const INTERVAL = useRef(getTimeUntilNextUpdate());
 
@@ -25,49 +27,43 @@ export const useSpotifyStats = (artistId, setIsLoadingArtist) => {
 
     const fetchData = async () => {
       try {
-        setIsLoadingArtist(true);
-        const songAlbumData = await fetchSongAlbumStats(artistId);
-        const artistData = await fetchArtistStats(artistId);
-        const artistTrackAndReachData = await fetchArtistTrackAndReachData(
-          artistId
-        );
-        setSongAlbumStats(songAlbumData);
-        setArtistStats(artistData);
-        setArtistTracksReach(artistTrackAndReachData);
-        setIsLoadingArtist(false);
+        const [songAlbumData, artistData, artistTrackAndReachData] =
+          await Promise.all([
+            fetchSongAlbumStats(artistId),
+            fetchArtistStats(artistId),
+            fetchArtistTrackAndReachData(artistId),
+          ]);
+        setData({
+          songAlbumStats: songAlbumData,
+          artistStats: artistData,
+          artistTracksReach: artistTrackAndReachData,
+          isLoading: false,
+          displayMode: data.displayMode,
+        });
       } catch (err) {
         console.error('Error fetching data:', err);
-        setIsLoadingArtist(false);
+        setData((prevData) => ({ ...prevData, isLoading: false }));
       }
     };
 
     fetchData();
     const interval = setInterval(fetchData, INTERVAL.current);
     return () => clearInterval(interval);
-  }, [artistId, setIsLoadingArtist]);
+  }, [artistId]);
 
-  useEffect(() => {
-    if (
-      songAlbumStats.length &&
-      Object.keys(artistStats).length &&
-      artistTracksReach.length > 0
-    ) {
-      setIsLoading(false);
-    }
-  }, [songAlbumStats, artistStats, artistTracksReach]);
-
-  const updatedAt = getUpdatedAt(songAlbumStats);
-  const tracks = processTracks(songAlbumStats);
-  const albums = processAlbums(songAlbumStats);
+  const updatedAt = getUpdatedAt(data.songAlbumStats);
+  const tracks = processTracks(data.songAlbumStats);
+  const albums = processAlbums(data.songAlbumStats);
 
   return {
-    isLoading,
-    displayMode,
-    setDisplayMode,
-    artistStats,
+    isLoading: data.isLoading,
+    displayMode: data.displayMode,
+    setDisplayMode: (mode) =>
+      setData((prevData) => ({ ...prevData, displayMode: mode })),
+    artistStats: data.artistStats,
     tracks,
     albums,
-    artistTracksReach,
+    artistTracksReach: data.artistTracksReach,
     updatedAt,
   };
 };

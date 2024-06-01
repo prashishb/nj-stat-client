@@ -6,15 +6,14 @@ import SpotifyStreamStats from './SpotifyStreamStats';
 
 const Home = ({ spotifyArtistIds }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isLoadingArtist, setIsLoadingArtist] = useState(false);
-  const [artistId, setArtistId] = useState(null);
 
   useEffect(() => {
     if (spotifyArtistIds.length > 0) {
-      setArtistId(spotifyArtistIds[currentIndex]);
+      setCurrentIndex(0);
     }
-  }, [spotifyArtistIds, currentIndex]);
+  }, [spotifyArtistIds]);
 
+  const artistId = spotifyArtistIds[currentIndex];
   const {
     isLoading,
     displayMode,
@@ -24,11 +23,10 @@ const Home = ({ spotifyArtistIds }) => {
     albums,
     artistTracksReach,
     updatedAt,
-  } = useSpotifyStats(artistId, setIsLoadingArtist);
+  } = useSpotifyStats(artistId);
 
   const goNextArtist = () => {
     if (currentIndex < spotifyArtistIds.length - 1) {
-      setIsLoadingArtist(true);
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -51,7 +49,6 @@ const Home = ({ spotifyArtistIds }) => {
             goPreviousArtist={goPreviousArtist}
             currentIndex={currentIndex}
             artistCount={spotifyArtistIds.length}
-            isLoadingArtist={isLoadingArtist}
           />
         )}
       </div>

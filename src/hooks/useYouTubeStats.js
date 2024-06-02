@@ -17,24 +17,24 @@ export const useYouTubeStats = () => {
 
   const INTERVAL = useRef(getTimeUntilNextUpdate());
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const videoData = await fetchVideoStats();
-        setData((prevData) => ({
-          ...prevData,
-          videoData,
-          isLoading: false,
-        }));
-      } catch (err) {
-        console.error('Error fetching data:', err);
-        setData((prevData) => ({
-          ...prevData,
-          isLoading: false,
-        }));
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const videoData = await fetchVideoStats();
+      setData((prevData) => ({
+        ...prevData,
+        videoData,
+        isLoading: false,
+      }));
+    } catch (err) {
+      console.error('Error fetching data:', err);
+      setData((prevData) => ({
+        ...prevData,
+        isLoading: false,
+      }));
+    }
+  };
 
+  useEffect(() => {
     fetchData();
     const interval = setInterval(fetchData, INTERVAL.current);
     return () => clearInterval(interval);

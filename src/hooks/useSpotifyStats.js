@@ -22,30 +22,29 @@ export const useSpotifyStats = (artistId) => {
 
   const INTERVAL = useRef(getTimeUntilNextUpdate());
 
+  const fetchData = async () => {
+    try {
+      const [songAlbumData, artistData, artistTrackAndReachData] =
+        await Promise.all([
+          fetchSongAlbumStats(artistId),
+          fetchArtistStats(artistId),
+          fetchArtistTrackAndReachData(artistId),
+        ]);
+      setData({
+        songAlbumStats: songAlbumData,
+        artistStats: artistData,
+        artistTracksReach: artistTrackAndReachData,
+        isLoading: false,
+        displayMode: data.displayMode,
+      });
+    } catch (err) {
+      console.error('Error fetching data:', err);
+      setData((prevData) => ({ ...prevData, isLoading: false }));
+    }
+  };
+
   useEffect(() => {
     if (!artistId) return;
-
-    const fetchData = async () => {
-      try {
-        const [songAlbumData, artistData, artistTrackAndReachData] =
-          await Promise.all([
-            fetchSongAlbumStats(artistId),
-            fetchArtistStats(artistId),
-            fetchArtistTrackAndReachData(artistId),
-          ]);
-        setData({
-          songAlbumStats: songAlbumData,
-          artistStats: artistData,
-          artistTracksReach: artistTrackAndReachData,
-          isLoading: false,
-          displayMode: data.displayMode,
-        });
-      } catch (err) {
-        console.error('Error fetching data:', err);
-        setData((prevData) => ({ ...prevData, isLoading: false }));
-      }
-    };
-
     fetchData();
     const interval = setInterval(fetchData, INTERVAL.current);
     return () => clearInterval(interval);

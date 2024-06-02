@@ -1,10 +1,29 @@
 import React, { useCallback } from 'react';
 
+const ToggleOption = ({ id, label, checked, onChange }) => (
+  <>
+    <input
+      type='radio'
+      className='btn-check'
+      name='displayModeToggle'
+      id={id}
+      autoComplete='off'
+      checked={checked}
+      onChange={onChange}
+    />
+    <label
+      className='btn btn-outline-green-moon button-transition'
+      htmlFor={id}
+    >
+      {label}
+    </label>
+  </>
+);
+
 const DisplayModeToggle = ({
   displayMode,
   setDisplayMode,
   hasMultipleAlbums,
-  hasMultipleTracks,
 }) => {
   const handleClick = useCallback(
     (mode) => {
@@ -15,57 +34,28 @@ const DisplayModeToggle = ({
 
   return (
     <div className='btn-group' role='group'>
-      <input
-        type='radio'
-        className='btn-check'
-        name='displayModeToggle'
+      <ToggleOption
         id='allSongs'
-        autoComplete='off'
+        label='All'
         checked={displayMode === 'all'}
         onChange={() => handleClick('all')}
       />
-      <label
-        className='btn btn-outline-green-moon button-transition'
-        htmlFor='allSongs'
-      >
-        All
-      </label>
 
       {hasMultipleAlbums && (
-        <>
-          <input
-            type='radio'
-            className='btn-check'
-            name='displayModeToggle'
-            id='albums'
-            autoComplete='off'
-            checked={displayMode === 'albums'}
-            onChange={() => handleClick('albums')}
-          />
-          <label
-            className='btn btn-outline-green-moon button-transition'
-            htmlFor='albums'
-          >
-            Albums
-          </label>
-        </>
+        <ToggleOption
+          id='albums'
+          label='Albums'
+          checked={displayMode === 'albums'}
+          onChange={() => handleClick('albums')}
+        />
       )}
 
-      <input
-        type='radio'
-        className='btn-check'
-        name='displayModeToggle'
+      <ToggleOption
         id='playlists'
-        autoComplete='off'
+        label='Playlists'
         checked={displayMode === 'playlists'}
         onChange={() => handleClick('playlists')}
       />
-      <label
-        className='btn btn-outline-green-moon button-transition'
-        htmlFor='playlists'
-      >
-        Playlists
-      </label>
     </div>
   );
 };

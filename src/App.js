@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './components/Home';
@@ -7,23 +7,11 @@ import SpotifyPlaylistCreator from './components/SpotifyPlaylistCreator';
 import Callback from './components/SpotifyPlaylistCreator/Callback';
 import YouTube from './components/YouTube';
 import ComingSoon from './components/ComingSoon';
-import { fetchArtistIds } from './services/spotifyStatsService';
+import useFetchArtistIds from './hooks/useFetchArtistIds';
 
 function App() {
   const [isFeatureEnabled, setIsFeatureEnabled] = useState(false);
-  const [SpotifyArtistIds, setSpotifyArtistIds] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const artistIds = await fetchArtistIds();
-        setSpotifyArtistIds(artistIds);
-      } catch (err) {
-        console.error('Error fetching artist ids:', err);
-      }
-    };
-    fetchData();
-  }, []);
+  const spotifyArtistIds = useFetchArtistIds();
 
   return (
     <div>
@@ -32,7 +20,7 @@ function App() {
         <Route
           exact
           path='/'
-          element={<Home spotifyArtistIds={SpotifyArtistIds} />}
+          element={<Home spotifyArtistIds={spotifyArtistIds} />}
         />
         {isFeatureEnabled ? (
           <Route

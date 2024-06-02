@@ -8,43 +8,42 @@ const FilterOptions = ({
   hasMultipleTracks,
   displayMode,
 }) => {
+  if (displayMode === 'playlists' || !hasMultipleTracks) return null;
+
   return (
-    displayMode !== 'playlists' &&
-    hasMultipleTracks && (
-      <div className='sort-by dropdown'>
-        <button
-          className='btn btn-outline-green-moon dropdown-toggle'
-          type='button'
-          id='filterMenuButton'
-          data-bs-toggle='dropdown'
-          aria-expanded='false'
-        >
-          <FontAwesomeIcon icon={faSort} /> Sort by: {filterOption}
-        </button>
-        <ul
-          className='dropdown-menu'
-          aria-labelledby='filterMenuButton'
-          style={{ minWidth: '100%' }}
-        >
-          <li>
-            <button
-              className='dropdown-item'
-              onClick={() => setFilterOption('Daily')}
-            >
-              Daily Streams
-            </button>
-          </li>
-          <li>
-            <button
-              className='dropdown-item'
-              onClick={() => setFilterOption('Total')}
-            >
-              Total Streams
-            </button>
-          </li>
-        </ul>
-      </div>
-    )
+    <div className='sort-by dropdown'>
+      <button
+        className='btn btn-outline-green-moon dropdown-toggle'
+        type='button'
+        id='filterMenuButton'
+        data-bs-toggle='dropdown'
+        aria-expanded='false'
+      >
+        <FontAwesomeIcon icon={faSort} /> Sort by: {filterOption}
+      </button>
+      <ul
+        className='dropdown-menu'
+        aria-labelledby='filterMenuButton'
+        style={{ minWidth: '100%' }}
+      >
+        <li>
+          <button
+            className='dropdown-item'
+            onClick={() => setFilterOption('Daily')}
+          >
+            Daily Streams
+          </button>
+        </li>
+        <li>
+          <button
+            className='dropdown-item'
+            onClick={() => setFilterOption('Total')}
+          >
+            Total Streams
+          </button>
+        </li>
+      </ul>
+    </div>
   );
 };
 

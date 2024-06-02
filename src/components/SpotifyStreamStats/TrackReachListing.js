@@ -1,5 +1,5 @@
 import React from 'react';
-import TrachReachCard from './TrackReachCard';
+import TrackReachCard from './TrackReachCard';
 
 const TrackReachListing = ({
   tracks,
@@ -7,7 +7,7 @@ const TrackReachListing = ({
   trackReachContainerRef,
 }) => {
   return (
-    <TrachReachCard
+    <TrackReachCard
       id='tracks-reach'
       title='Playlist Reach'
       tracks={tracks}

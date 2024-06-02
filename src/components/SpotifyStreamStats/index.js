@@ -1,15 +1,18 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { sortTracks, sortTracksByAlbum } from '../../utils/spotifyStatsUtils';
+import React, { useState, useEffect, useRef } from 'react';
 import { formatDate } from '../../utils/valueFormatter';
 import handleScreenshot from '../../utils/handleScreenshot';
-
 import DisplayModeToggle from '../DisplayModeToggle';
 import FilterOptions from './FilterOptions';
 import TrackListing from './TrackListing';
 import AlbumListing from './AlbumListing';
 import TrackReachListing from './TrackReachListing';
+import {
+  useSortedTracks,
+  useSortedAlbums,
+  useAlbumsWithMultipleTracks,
+} from '../../hooks/useSorting';
 
-const Index = ({
+const SpotifyStreamStats = ({
   displayMode,
   setDisplayMode,
   tracks,
@@ -18,7 +21,6 @@ const Index = ({
   updatedAt,
 }) => {
   const [filterOption, setFilterOption] = useState('Daily');
-
   const trackContainerRef = useRef(null);
   const albumContainerRefs = useRef([]);
   const trackReachContainerRef = useRef(null);
@@ -33,21 +35,10 @@ const Index = ({
     );
   };
 
-  const sortedTracks = useMemo(
-    () => sortTracks(tracks, filterOption),
-    [tracks, filterOption]
-  );
-
-  const sortedAlbums = useMemo(
-    () => sortTracksByAlbum(groupedTracksByAlbum, filterOption),
-    [groupedTracksByAlbum, filterOption]
-  );
-
-  const albumsWithMoreThanOneTrack = useMemo(
-    () => groupedTracksByAlbum.filter((album) => album.tracks.length > 1),
-    [groupedTracksByAlbum]
-  );
-  const hasMultipleAlbums = albumsWithMoreThanOneTrack.length > 1;
+  const sortedTracks = useSortedTracks(tracks, filterOption);
+  const sortedAlbums = useSortedAlbums(groupedTracksByAlbum, filterOption);
+  const hasMultipleAlbums =
+    useAlbumsWithMultipleTracks(groupedTracksByAlbum).length > 1;
   const hasMultipleTracks = tracks.length > 1;
 
   useEffect(() => {
@@ -109,4 +100,4 @@ const Index = ({
   );
 };
 
-export default Index;
+export default SpotifyStreamStats;

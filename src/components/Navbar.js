@@ -1,53 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ReactComponent as Logo } from '../assets/logo.svg';
 import ToggleButton from './ToggleButton';
 import { FaCaretDown, FaCaretUp, FaSpotify } from 'react-icons/fa';
 import { IoLogoYoutube } from 'react-icons/io';
+import useTheme from '../hooks/useTheme';
+import useDropdown from '../hooks/useDropdown';
 
 const Navbar = () => {
-  const [theme, setTheme] = useState('light');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem('theme')) {
-      setTheme(localStorage.getItem('theme'));
-    } else {
-      const prefersDarkScheme = window.matchMedia(
-        '(prefers-color-scheme: dark)'
-      );
-      setTheme(prefersDarkScheme.matches ? 'dark' : 'light');
-    }
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-bs-theme', theme);
-    document.documentElement.classList.toggle('light', theme === 'light');
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    const navbar = document.querySelector('.navbar');
-    navbar.classList.toggle('navbar-light', theme === 'light');
-    navbar.classList.toggle('navbar-dark', theme === 'dark');
-  }, [theme]);
-
-  const toggleDropdown = () => {
-    setDropdownOpen((currentDropdownOpen) => !currentDropdownOpen);
-  };
-
-  const closeNavbar = () => {
-    const navbarToggler = document.querySelector('.navbar-toggler');
-    if (window.innerWidth < 991) {
-      navbarToggler.click();
-    }
-  };
-
-  const toggleTheme = () => {
-    setTheme((currentTheme) => (currentTheme === 'light' ? 'dark' : 'light'));
-    localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
-    closeNavbar();
-  };
+  const [theme, toggleTheme] = useTheme();
+  const [dropdownOpen, toggleDropdown, closeNavbar] = useDropdown();
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-light container navbar-container mt-0'>
+    <nav
+      className={`navbar navbar-expand-lg navbar-${theme} container navbar-container mt-0`}
+    >
       <div className='container-fluid'>
         <Link className='navbar-brand' to='/'>
           <Logo
@@ -142,7 +109,7 @@ const Navbar = () => {
                   }`}
                   onClick={toggleTheme}
                 >
-                  <ToggleButton theme={theme} toggleTheme={toggleTheme} />
+                  <ToggleButton theme={theme} />
                   <span className='theme-label d-inline-block d-lg-none'>
                     {theme === 'light' ? 'Use Dark Mode' : 'Use Light Mode'}
                   </span>

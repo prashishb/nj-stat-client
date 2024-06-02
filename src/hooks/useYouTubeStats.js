@@ -9,9 +9,11 @@ import {
 import { getTimeUntilNextUpdate } from '../utils/helperUtils';
 
 export const useYouTubeStats = () => {
-  const [videoData, setVideoData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [displayMode, setDisplayMode] = useState('All');
+  const [data, setData] = useState({
+    videoData: [],
+    isLoading: true,
+    displayMode: 'All',
+  });
 
   const INTERVAL = useRef(getTimeUntilNextUpdate());
 
@@ -19,33 +21,37 @@ export const useYouTubeStats = () => {
     const fetchData = async () => {
       try {
         const videoData = await fetchVideoStats();
-        setVideoData(videoData);
+        setData((prevData) => ({
+          ...prevData,
+          videoData,
+          isLoading: false,
+        }));
       } catch (err) {
         console.error('Error fetching data:', err);
+        setData((prevData) => ({
+          ...prevData,
+          isLoading: false,
+        }));
       }
     };
+
     fetchData();
     const interval = setInterval(fetchData, INTERVAL.current);
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    if (videoData && videoData.length > 0) {
-      setIsLoading(false);
-    }
-  }, [videoData]);
-
-  const updatedAt = getUpdatedAt(videoData);
-  const videos = processVideos(videoData);
-  const hourlyTrendingVideoId = getHourlyTrendingVideo(videoData);
-  const dailyTrendingVideoId = getDailyTrendingVideo(videoData);
+  const updatedAt = getUpdatedAt(data.videoData);
+  const videos = processVideos(data.videoData);
+  const hourlyTrendingVideoId = getHourlyTrendingVideo(data.videoData);
+  const dailyTrendingVideoId = getDailyTrendingVideo(data.videoData);
 
   return {
-    isLoading,
+    isLoading: data.isLoading,
     videos,
     updatedAt,
-    displayMode,
-    setDisplayMode,
+    displayMode: data.displayMode,
+    setDisplayMode: (mode) =>
+      setData((prevData) => ({ ...prevData, displayMode: mode })),
     hourlyTrendingVideoId,
     dailyTrendingVideoId,
   };

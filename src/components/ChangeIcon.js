@@ -6,7 +6,7 @@ const ChangeIcon = ({ change }) => {
   if (change > 0) {
     return <FontAwesomeIcon icon={faPlus} />;
   } else if (change < 0) {
-    return <FontAwesomeIcon icon={faMinus} />;
+    return <FontAwesomeIcon icon={faMinus} className='fa-minus-decrease' />;
   } else {
     return <FontAwesomeIcon icon={faMinus} className='text-body-tertiary' />;
   }

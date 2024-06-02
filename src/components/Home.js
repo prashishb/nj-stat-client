@@ -1,41 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ArtistCard from './ArtistCard';
-import { useSpotifyStats } from '../hooks/useSpotifyStats';
 import Spinner from './Spinner';
 import SpotifyStreamStats from './SpotifyStreamStats';
+import useArtistNavigation from '../hooks/useArtistNavigation';
 
 const Home = ({ spotifyArtistIds }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    if (spotifyArtistIds.length > 0) {
-      setCurrentIndex(0);
-    }
-  }, [spotifyArtistIds]);
-
-  const artistId = spotifyArtistIds[currentIndex];
   const {
-    isLoading,
-    displayMode,
-    setDisplayMode,
+    currentIndex,
+    artistId,
     artistStats,
     tracks,
     albums,
     artistTracksReach,
     updatedAt,
-  } = useSpotifyStats(artistId);
-
-  const goNextArtist = () => {
-    if (currentIndex < spotifyArtistIds.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
-  };
-
-  const goPreviousArtist = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
-  };
+    isLoading,
+    displayMode,
+    setDisplayMode,
+    goNextArtist,
+    goPreviousArtist,
+  } = useArtistNavigation(spotifyArtistIds);
 
   if (isLoading || !artistId) return <Spinner />;
 

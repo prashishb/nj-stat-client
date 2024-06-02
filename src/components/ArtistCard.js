@@ -1,26 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { formatDate } from '../utils/valueFormatter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faMinus,
-  faPlus,
-  faAngleRight,
-  faAngleLeft,
-} from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { fetchHistoricalSpotifyArtistStats } from '../services/spotifyStatsService';
 import ChartModal from './ChartModal';
-
-import { SpinnerCircularFixed } from 'spinners-react';
-
-const ChangeIcon = ({ change }) => {
-  if (change > 0) {
-    return <FontAwesomeIcon icon={faPlus} />;
-  } else if (change < 0) {
-    return <FontAwesomeIcon icon={faMinus} className='fa-minus-decrease' />;
-  } else {
-    return <FontAwesomeIcon icon={faMinus} className='text-body-tertiary' />;
-  }
-};
+import Spinner from './Spinner';
+import ChangeIcon from './ChangeIcon';
+import useTheme from '../hooks/useTheme';
 
 const ArtistCard = ({
   artist,
@@ -36,24 +22,11 @@ const ArtistCard = ({
   const changeInMonthlyListeners = changes.monthlyListeners;
   const changeInWorldRank = changes.worldRank;
   const changeInFollowers = changes.followers;
-  // const defualtImg = 'https://i.imgur.com/vKaKiOU.jpg';
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [chartData, setChartData] = useState([]);
   const [chartTitle, setChartTitle] = useState('');
-  const [theme, setTheme] = useState(
-    document.documentElement.className || 'light'
-  );
-
-  useEffect(() => {
-    const classObserver = new MutationObserver(() => {
-      setTheme(document.documentElement.className);
-    });
-
-    classObserver.observe(document.documentElement, { attributes: true });
-
-    return () => classObserver.disconnect();
-  }, []);
+  const theme = useTheme();
 
   const handleStatClick = async (statType) => {
     try {
@@ -92,14 +65,7 @@ const ArtistCard = ({
           <div className='overlay'>
             {isLoadingArtist && (
               <div className='loader'>
-                <SpinnerCircularFixed
-                  size={50}
-                  thickness={200}
-                  speed={100}
-                  color='rgb(86,171,47)'
-                  secondaryColor='#adb5bd'
-                  margin='0 auto'
-                />
+                <Spinner size={50} />
               </div>
             )}
           </div>

@@ -1,18 +1,7 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import ChangeIcon from '../ChangeIcon';
 
-const ChangeIcon = ({ change }) => {
-  if (change > 0) {
-    return <FontAwesomeIcon icon={faPlus} />;
-  } else if (change < 0) {
-    return <FontAwesomeIcon icon={faMinus} />;
-  } else {
-    return <FontAwesomeIcon icon={faMinus} className='text-body-tertiary' />;
-  }
-};
-
-const SongAlbumCard = ({ track }) => {
+const SongAlbumList = ({ track }) => {
   return (
     <div className='card bg-light-subtle bg-opacity-10 mb-2 border'>
       <div className='row no-gutters align-items-center m-0 track-card'>
@@ -60,4 +49,4 @@ const SongAlbumCard = ({ track }) => {
   );
 };
 
-export default SongAlbumCard;
+export default SongAlbumList;

@@ -11,6 +11,11 @@ const Navbar = () => {
   const [theme, toggleTheme] = useTheme();
   const [dropdownOpen, toggleDropdown, closeNavbar] = useDropdown();
 
+  const handleThemeToggle = () => {
+    toggleTheme();
+    closeNavbar();
+  };
+
   return (
     <nav
       className={`navbar navbar-expand-lg navbar-${theme} container navbar-container mt-0`}
@@ -107,7 +112,7 @@ const Navbar = () => {
                       ? 'toggle-button-light'
                       : 'toggle-button-dark'
                   }`}
-                  onClick={toggleTheme}
+                  onClick={handleThemeToggle}
                 >
                   <ToggleButton theme={theme} />
                   <span className='theme-label d-inline-block d-lg-none'>

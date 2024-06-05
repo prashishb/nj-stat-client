@@ -45,6 +45,16 @@ const ArtistCard = ({
     }
   };
 
+  const defaultHeaderImages = {
+    '3BNhPTiKBExlE45mYeC9YY':
+      'https://res.cloudinary.com/dqalpjyks/image/upload/v1717552609/THE-FACE-19_NEW-JEANS_19_jpg_xvz6tg.png',
+    '01BBFQPvi8ywBqHPzWzoyU':
+      'https://res.cloudinary.com/dqalpjyks/image/upload/v1717554569/hyeinheader_qdlsg1.png',
+  };
+
+  const resolvedHeaderImageUrl =
+    headerImageUrl || defaultHeaderImages[artistId];
+
   return (
     <div
       className='card artist-card bg-light-subtle bg-opacity-10 border-0'
@@ -52,16 +62,11 @@ const ArtistCard = ({
     >
       <div className='artist-card-container'>
         <div className='header-image-container'>
-          {headerImageUrl ? (
-            <img src={headerImageUrl} className='header-image' alt={name} />
-          ) : (
-            <div
-              className='header-image'
-              style={{
-                backgroundColor: `hsl(${Math.random() * 360}, 100%, 90%)`,
-              }}
-            ></div>
-          )}
+          <img
+            src={resolvedHeaderImageUrl}
+            className='header-image'
+            alt={name}
+          />
           <div className='overlay'>
             {isLoadingArtist && (
               <div className='loader'>

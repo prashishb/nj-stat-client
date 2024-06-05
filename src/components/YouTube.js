@@ -156,6 +156,8 @@ const YouTube = () => {
                 video={video}
                 hourlyTrending={video.id === hourlyTrendingVideoId}
                 dailyTrending={video.id === dailyTrendingVideoId}
+                hourlyTrendingVideoId={hourlyTrendingVideoId}
+                dailyTrendingVideoId={dailyTrendingVideoId}
               />
             </div>
           );

@@ -54,6 +54,21 @@ export const getBadgeClass = (count) => {
   return null;
 };
 
+export const getBadges = (viewCount, videoId, hourlyTrendingVideoId) => {
+  const milestone = checkMilestone(viewCount);
+  const badges = [];
+
+  if (milestone) {
+    badges.push({ label: milestone, variant: getBadgeClass(viewCount) });
+  }
+
+  if (videoId === hourlyTrendingVideoId) {
+    badges.push({ label: 'Trending', variant: 'badge-hourly-gainer' });
+  }
+
+  return badges;
+};
+
 export const getSortedVideos = (videos, filterOption) => {
   const sorted = [...videos];
   if (filterOption === 'Hourly') {

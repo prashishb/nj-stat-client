@@ -1,20 +1,14 @@
 import React, { useRef } from 'react';
-import { FiThumbsUp, FiArrowUp } from 'react-icons/fi';
+import { FiThumbsUp } from 'react-icons/fi';
+import { FaArrowTrendUp } from 'react-icons/fa6';
 import { BsEyeFill } from 'react-icons/bs';
-import {
-  formatCount,
-  checkMilestone,
-  getBadgeClass,
-} from '../utils/youtubeStatsUtils';
+import { formatCount, getBadges } from '../utils/youtubeStatsUtils';
 
-const VideoCard = ({ video, hourlyTrending }) => {
+const VideoCard = ({ video, hourlyTrendingVideoId }) => {
   const { image, title, viewCount, hourlyViewCount, dayViewCount, likeCount } =
     video;
-
+  const badges = getBadges(viewCount, video.id, hourlyTrendingVideoId);
   const cardRef = useRef(null);
-
-  const milestone = checkMilestone(viewCount);
-  const badgeClass = getBadgeClass(viewCount);
   const titleWithoutNewJeans = title.replace('NewJeans (뉴진스)', '');
 
   return (
@@ -32,16 +26,19 @@ const VideoCard = ({ video, hourlyTrending }) => {
                 <FiThumbsUp className='me-1' />{' '}
                 <span>{formatCount(likeCount)}</span>
               </p>
-              {hourlyTrending && (
-                <p className='ms-2 video-badge badge-hourly-gainer'>
-                  <FiArrowUp className='me-1' /> Top Hourly
+              {badges.map((badge, index) => (
+                <p key={index} className={`ms-2 video-badge ${badge.variant}`}>
+                  {badge.label === 'Trending' ? (
+                    <>
+                      <FaArrowTrendUp className='me-1' /> {badge.label}
+                    </>
+                  ) : (
+                    <>
+                      <BsEyeFill className='me-1' /> {badge.label}
+                    </>
+                  )}
                 </p>
-              )}
-              {milestone && (
-                <p className={`ms-2 video-badge ${badgeClass}`}>
-                  <BsEyeFill className='me-1' /> {milestone}
-                </p>
-              )}
+              ))}
             </div>
           </div>
         </div>
